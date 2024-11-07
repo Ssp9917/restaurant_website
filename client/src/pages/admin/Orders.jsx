@@ -1,20 +1,15 @@
 import React from 'react';
 import Table from '../../components/Table';
-import { Link, useNavigate } from 'react-router-dom';
-import { FaEye } from "react-icons/fa";
+import { FaEdit, FaEye } from "react-icons/fa";
 import { MdDeleteForever } from "react-icons/md";
-import { FaEdit } from "react-icons/fa";
 import TableSearch from '../../components/TableSearch';
 import { FaFilter } from "react-icons/fa";
 import { FaSortAmountDown } from "react-icons/fa";
-import { FaPlusCircle } from "react-icons/fa";
-import { useGetAllOrdersQuery } from '../../api/orderSlice'; // Updated import to fetch orders
+import { useGetAdminOrdersQuery} from '../../api/orderSlice'; // Updated import to fetch orders
+import { Link } from 'react-router-dom';
 
 const Orders = () => {
-  const navigate = useNavigate();
-
-  // Fetching orders data instead of recipes
-  const { data: ordersList = [] } = useGetAllOrdersQuery();
+  const { data: ordersList = [] } = useGetAdminOrdersQuery();
 
   // Sort orders by date, most recent first
   const sortedOrders = [...ordersList].sort((a, b) => new Date(b.date) - new Date(a.date));
@@ -49,29 +44,33 @@ const Orders = () => {
     },
   ];
 
-  const renderRow = (order, index) => (
-    <tr
-      key={order._id}
-      className="border-b border-gray-200 even:bg-slate-50 text-sm hover:bg-lamaPurpleLight"
-    >
-      <td className="hidden md:table-cell pl-3">{index + 1}</td>
-      <td className="flex items-center gap-4 p-4">
-        <h3 className="font-semibold">{order._id}</h3> {/* Displaying Order ID */}
-      </td>
-      <td className="hidden md:table-cell">₹ {order.totalAmount}</td> {/* Displaying total amount */}
-      <td className="hidden md:table-cell">{order.status}</td> {/* Displaying payment status */}
-      <td className="hidden md:table-cell"> {new Date(order.createdAt).toLocaleDateString()} at {new Date(order.createdAt).toLocaleTimeString()}</td> {/* Displaying date & time */}
-      <td>
-        <div className="flex items-center gap-2">
-          <button className="h-7 gap-2 w-full flex items-center justify-center rounded-full bg-lamaSky">
-            <div><FaEye size={16} /></div>
-            <div><FaEdit size={16} /></div>
-            <div><MdDeleteForever size={16} /></div>
-          </button>
-        </div>
-      </td>
-    </tr>
-  );
+  const renderRow = (order, index) => {
+    // Define the styles for different statuses
+    const statusStyle = order.status === 'completed' ? 'bg-green-500 text-white' : 'bg-yellow-400 text-white';
+
+    return (
+      <tr
+        key={order._id}
+        className="border-b border-gray-200 even:bg-slate-50 text-sm hover:bg-lamaPurpleLight"
+      >
+        <td className="hidden md:table-cell pl-3">{index + 1}</td>
+        <td className="flex items-center gap-4 p-4">
+          <h3 className="font-semibold">{order._id}</h3> {/* Displaying Order ID */}
+        </td>
+        <td className="hidden md:table-cell">₹ {order.totalAmount}</td> {/* Displaying total amount */}
+        <td className={`hidden md:table-cell`}><div className={`${statusStyle} text-center rounded-full ml-5 mr-5 cursor-pointer`}>{order.status}</div> </td> {/* Conditional styling for status */}
+        <td className="hidden md:table-cell"> {new Date(order.createdAt).toLocaleDateString()} at {new Date(order.createdAt).toLocaleTimeString()}</td> {/* Displaying date & time */}
+        <td>
+          <div className="flex items-center gap-2">
+            <button className="h-7 gap-2 w-full flex items-center justify-center rounded-full bg-lamaSky">
+              <Link to={`/admin/order/${order._id}`}><div><FaEye size={16} /></div></Link>
+              <div><MdDeleteForever size={16} /></div>
+            </button>
+          </div>
+        </td>
+      </tr>
+    );
+  };
 
   return (
     <>
@@ -87,19 +86,14 @@ const Orders = () => {
             <button className="w-8 h-8 flex items-center justify-center rounded-full bg-lamaYellow">
               <FaSortAmountDown size={14} />
             </button>
-            {/* <button className="w-8 h-8 flex items-center justify-center rounded-full bg-lamaYellow" onClick={() => navigate('/admin/orders/addOrder')}>
-              <FaPlusCircle size={14} />
-            </button> */}
           </div>
         </div>
       </div>
 
       {/* LIST */}
       <Table columns={columns} renderRow={renderRow} data={sortedOrders} />
-
-      {/* PAGINATION */}
     </>
   );
-}
+};
 
 export default Orders;

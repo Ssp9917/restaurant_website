@@ -64,12 +64,12 @@ const SingleRecipeDetails = () => {
               <span className="pl-4 text-sm line-through">{productData.oldPrice}</span>
             </p>
             <div className="flex gap-3">
-              <button
+              {/* <button
                 onClick={handleBuy}
                 className="bg-yellow-500 py-1 mt-2 rounded hover:bg-yellow-600 min-w-[100px]"
               >
                 Buy
-              </button>
+              </button> */}
               <button
                 onClick={handleAddCartProduct}
                 className="bg-yellow-500 py-1 mt-2 rounded hover:bg-yellow-600 min-w-[100px]"

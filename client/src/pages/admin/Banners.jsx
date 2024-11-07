@@ -63,13 +63,11 @@ const Banners = () => {
       {/* <td className="hidden md:table-cell">₹ {homeProductCartList.price}</td> */}
       <td>
         <div className="flex items-center gap-2">
-          <Link to={`/list/teachers/${data._id}`}>
             <button className="h-7 gap-2 w-full flex items-center justify-center rounded-full bg-lamaSky">
-              <div><FaEye size={16} /></div>
+              {/* <div><FaEye size={16} /></div> */}
               <div><FaEdit size={16} /></div>
               <div><MdDeleteForever size={16} /></div>
             </button>
-          </Link>
         </div>
       </td>
     </tr>

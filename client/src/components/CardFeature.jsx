@@ -3,18 +3,18 @@ import { useDispatch } from 'react-redux'
 import { Link } from 'react-router-dom'
 import { addItemToCart } from '../features/cart/cartSlice'
 
-const CardFeature = ({ image, name, price, category, loading, id }) => {
+const CardFeature = ({ image, name, price, category, loading, id,oldprice }) => {
 
     const backendBaseUrl = import.meta.env.VITE_BACKEND_BASE_URL
 
     const dispatch = useDispatch()
 
     const handleAddCartProduct = (e) => {
-        dispatch(addItemToCart({id,image,name,price,category}));
+        dispatch(addItemToCart({ id, image, name, price, category, }));
     };
 
     return (
-        <div className="w-full min-w-[200px] max-w-[200px] bg-white hover:shadow-lg drop-shadow-lg py-5 px-4 cursor-pointer flex flex-col ">
+        <div className="w-full min-w-[200px] max-w-[330px] bg-white hover:shadow-lg drop-shadow-lg py-5 px-4 cursor-pointer flex flex-col ">
             {image ? (
                 <>
                     <Link
@@ -28,9 +28,11 @@ const CardFeature = ({ image, name, price, category, loading, id }) => {
                             {name}
                         </h3>
                         <p className=" text-slate-500  font-medium">{category}</p>
-                        <p className=" font-bold">
+                        <p className=" flex font-bold">
                             <span className="text-red-500">₹</span>
-                            <span>{price}</span>
+                            <div className='flex gap-4'>
+                                <span>{price}</span><span className='font-normal line-through'>{oldprice}</span>
+                            </div>
                         </p>
                     </Link>
                     <button

@@ -34,10 +34,10 @@ const AllProduct = ({ heading }) => {
   };
 
   return (
-    <div className="my-5">
+    <div className="mt-5">
       <h2 className="font-bold text-2xl text-slate-800 mb-4">{heading}</h2>
 
-      <div className="flex gap-4 justify-center overflow-scroll scrollbar-none">
+      <div className="flex max-w-[350px] gap-4 md:justify-center justify-start overflow-scroll scrollbar-none">
         <FilterProduct
           category={'All'}
           key={'all'}
@@ -62,7 +62,7 @@ const AllProduct = ({ heading }) => {
 
       <div className="flex flex-wrap justify-center gap-4 my-4">
         {dataFilter?.length > 0 ? (
-          dataFilter.map((el) => (
+          dataFilter.slice(0,15).map((el) => (
             <CardFeature
               key={el._id}
               id={el._id}
@@ -70,6 +70,7 @@ const AllProduct = ({ heading }) => {
               name={el.name}
               category={el.category.name}
               price={el.price}
+              oldprice={el.oldPrice}
             />
           ))
         ) : (

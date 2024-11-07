@@ -16,11 +16,11 @@ import Banners from "../pages/admin/Banners";
 import AddBanner from "../pages/admin/addBanner";
 import Order from "../pages/user/Order";
 import Orders from "../pages/admin/Orders";
-import ViewSingleOrder from "../pages/admin/ViewSingleOrder";
 import About from "../pages/user/About";
 import Contact from "../pages/user/Contact";
 import EditCategory from "../pages/admin/EditCategory";
 import EditRecipe from "../pages/admin/EditRecipe";
+import OrderView from "../pages/admin/OrderView";
 
 
 
@@ -117,7 +117,7 @@ const router = createBrowserRouter([
       },
       {
         path:"order/:orderId",
-        element:<ViewSingleOrder/>
+        element:<OrderView/>
       }
     ]
   },

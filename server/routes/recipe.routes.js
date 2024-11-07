@@ -6,9 +6,9 @@ const recipeRouter = express.Router();
 
 // Route to get all recipes
 recipeRouter.get('/getAllrecipes', getAllRecipes);
-recipeRouter.post('/addRecipes', upload.single('image'),addRecipe);
+recipeRouter.post('/addRecipes', upload.single('image'), addRecipe);
 recipeRouter.get('/getSingleRecipe/:id', getSingleRecipeDetails);
-recipeRouter.put('/editRecipe/:id',editRecipe);
+recipeRouter.put('/editRecipe/:id',upload.single('image'), editRecipe);
 recipeRouter.delete('/deleteRecipe/:id',deleteRecipe)
 
 export default recipeRouter;
