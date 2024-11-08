@@ -10,8 +10,13 @@ const Home = () => {
       <Banner/>
       {/* <About/> */}
       {/* <Menu heading="Our Manus"/> */}
-      <HomeProduct/>
-      <AllProduct heading={"Your Recipe"} />
+      {/* Vegitable */}
+      <HomeProduct headings={"Fresh Vegitable"} vegitable={true}/>
+
+      {/* Recipe */}
+      <HomeProduct headings={"Recipes"} vegitable={false}/>
+
+      <AllProduct  heading={"Shop By Category"} />
     </>
   )
 }

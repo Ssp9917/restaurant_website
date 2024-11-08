@@ -20,10 +20,10 @@ export const categorySlice = apiSlice.injectEndpoints({
 
         // Edit category mutation
         editCategory: builder.mutation({
-            query: ({ id, name }) => ({
+            query: ({ id, data }) => ({
                 url: `category/editCategory/${id}`,  // URL with category ID
                 method: 'PUT',
-                body: { name },  // Send the name in the body as an object
+                body:  data ,  // Send the name in the body as an object
             }),
         }),
 

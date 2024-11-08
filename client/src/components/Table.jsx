@@ -4,7 +4,7 @@ const Table = ({ columns, renderRow, data }) => (
       <thead>
         <tr>
           {columns.map((col) => (
-            <th key={col.accessor} className="text-left p-2 border-b">
+            <th key={col.accessor} className={`text-left p-2 border-b ${col.className}`}>
               {col.header}
             </th>
           ))}

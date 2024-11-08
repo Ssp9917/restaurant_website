@@ -1,5 +1,6 @@
 import React from 'react';
 import { useGetAllOrdersQuery } from '../../api/orderSlice';
+import BackButton from '../../components/BackIcon';
 
 const Order = () => {
     const { data, error, isLoading } = useGetAllOrdersQuery();
@@ -16,7 +17,7 @@ const Order = () => {
 
     return (
         <div className="max-w-7xl mx-auto p-4">
-            <h1 className="text-2xl font-bold mb-6">Your Orders</h1>
+            <h1 className="text-2xl font-bold mb-6"> <span><BackButton/></span>Orders</h1>
             {data && data.length > 0 ? (
                 data.map((order) => (
                     <div key={order._id} className="bg-white shadow-md rounded-lg p-6 mb-4">

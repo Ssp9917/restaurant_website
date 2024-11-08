@@ -60,11 +60,12 @@ const Recipe = () => {
     {
       header: "S.no",
       accessor: "S.no",
+      className: "hidden md:table-cell",
     },
     {
       header: "Recipe Name",
       accessor: "teacherId",
-      className: "hidden md:table-cell",
+      // className: "hidden md:table-cell",
     },
     {
       header: "Category",

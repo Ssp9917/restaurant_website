@@ -35,7 +35,7 @@ const Sidebar = () => {
                 },
                 {
                     label: "Users",
-                    href: "/",
+                    href: "/admin/users",
                     icon: <FaUserAlt />
                 },
                 {

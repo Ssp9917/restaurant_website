@@ -2,6 +2,7 @@ import React, { useContext, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { IoClose } from "react-icons/io5";
 import { AuthContext } from '../context/AuthContext';
+import swal from 'sweetalert';
 
 
 const Signup = () => {
@@ -39,9 +40,14 @@ const Signup = () => {
       setLoading(true);
       const response = await signup(userData);
 
-      console.log(response);
-      setIsSuccess(true);
-      setErrorMessage('Registration successful! ');
+      // Show success message
+      swal({
+        title: "Account Created!",
+        text: "Your account has been created successfully.",
+        icon: "success",
+        buttons: false,
+        timer: 2000, // Optional: auto-close after 2 seconds
+      });
 
       setTimeout(() => {
         navigate('/');
@@ -56,12 +62,12 @@ const Signup = () => {
 
 
 
- 
+
 
   return (
-    <div className='flex-col absolute top-0 left-0 w-full h-full bg-gray-400 flex justify-center items-center min-h-screen'>
+    <div className='flex-col absolute p-2 top-0 left-0 w-full h-full bg-gray-400 flex justify-center items-center min-h-screen'>
       <div className='w-full relative max-w-sm bg-white m-auto flex flex-col p-4'>
-        <h2 className='text-2xl font-bold mb-4 text-center'>
+        <h2 className='text-2xl  mb-4 text-center'>
           Register
           <IoClose className='absolute top-3 right-3 cursor-pointer' onClick={() => navigate('/')} />
         </h2>
@@ -73,45 +79,56 @@ const Signup = () => {
         )}
 
         <form className='w-full flex gap-4 flex-col' onSubmit={submitHandler}>
-          <input
-            type="text"
-            placeholder='Username'
-            name="name"
-            value={userData.name}
-            onChange={changeInputHandler}
-            className='shadow border rounded-md w-full py-2 px-3 text-gray-700'
-            required
-          />
-          <input
-            type="email"
-            placeholder='Email'
-            name="email"
-            value={userData.email}
-            onChange={changeInputHandler}
-            className='shadow border rounded-md w-full py-2 px-3 text-gray-700'
-            required
-          />
-          <input
-            type="password"
-            placeholder='Password'
-            name="password"
-            value={userData.password}
-            onChange={changeInputHandler}
-            className='shadow border rounded-md w-full py-2 px-3 text-gray-700'
-            required
-          />
-          <input
-            type="password"
-            placeholder='Confirm password'
-            name="password2"
-            value={userData.password2}
-            onChange={changeInputHandler}
-            className='shadow border rounded-md w-full py-2 px-3 text-gray-700'
-            required
-          />
+          <div className='flex px-2 py-1 bg-slate-200 rounded mt-1 mb-2 focus-within:outline focus-within:outline-blue-300'>
+            <input
+              type="text"
+              placeholder='Username'
+              name="name"
+              value={userData.name}
+              onChange={changeInputHandler}
+              className='w-full bg-slate-200 border-none outline-none'
+              required
+            />
+          </div>
+
+          <div className='flex px-2 py-1 bg-slate-200 rounded mt-1 mb-2 focus-within:outline focus-within:outline-blue-300'>
+            <input
+              type="email"
+              placeholder='Email'
+              name="email"
+              value={userData.email}
+              onChange={changeInputHandler}
+              className='w-full bg-slate-200 border-none outline-none'
+              required
+            />
+          </div>
+
+          <div className='flex px-2 py-1 bg-slate-200 rounded mt-1 mb-2 focus-within:outline focus-within:outline-blue-300'>
+            <input
+              type="password"
+              placeholder='Password'
+              name="password"
+              value={userData.password}
+              onChange={changeInputHandler}
+              className='w-full bg-slate-200 border-none outline-none'
+              required
+            />
+          </div>
+
+          <div className='flex px-2 py-1 bg-slate-200 rounded mt-1 mb-2 focus-within:outline focus-within:outline-blue-300'>
+            <input
+              type="password"
+              placeholder='Confirm password'
+              name="password2"
+              value={userData.password2}
+              onChange={changeInputHandler}
+              className='w-full bg-slate-200 border-none outline-none'
+              required
+            />
+          </div>
           <button
             type="submit"
-            className={`bg-red-500 hover:bg-red-600 text-white font-bold py-2 px-4 rounded-md w-full ${loading ? 'opacity-50 cursor-not-allowed' : ''}`}
+            className={`w-full max-w-[150px] m-auto  bg-red-500 hover:bg-red-600 cursor-pointer  text-white text-xl font-medium text-center py-1 rounded-full ${loading ? 'opacity-50 cursor-not-allowed' : ''}`}
             disabled={loading} // Disable button while loading
           >
             {loading ? 'Registering...' : 'Register'}

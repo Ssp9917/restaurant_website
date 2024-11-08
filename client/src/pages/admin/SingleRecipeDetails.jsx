@@ -18,7 +18,7 @@ const SingleRecipeDetails = () => {
 
   // Fetch product data using the filterby parameter
   const { data: productData, isLoading, error } = useGetSingleRecipeDetailsQuery(id);
-  
+
   const handleAddCartProduct = () => {
     if (productData) {
       const { image, name, price, category: { name: categoryName }, _id: id } = productData; // Destructure category.name as categoryName
@@ -43,26 +43,30 @@ const SingleRecipeDetails = () => {
     <div>
       <div className="p-2 md:p-4">
         <div className="w-full max-w-4xl m-auto md:flex bg-white">
-          <div className="max-w-sm overflow-hidden w-full p-5">
+          <div className="max-w-sm overflow-hidden w-full p-2">
             <img
-              src={backendUrl+'/'+productData.image}
+              src={backendUrl + '/' + productData.image}
               alt={productData.name}
               className="hover:scale-105 transition-all h-full"
             />
           </div>
 
           <div className="flex flex-col gap-1">
-            <h3 className="font-semibold text-slate-600 capitalize text-2xl md:text-4xl">
+            <h3 className="font-semibold pl-2 md:pl-0 text-slate-600 capitalize text-2xl md:text-4xl">
               {productData.name}
             </h3>
-            <p className="text-slate-500 font-medium text-2xl">
+            <p className="text-slate-500 pl-2 md:pl-0 font-medium text-2xl">
               {productData.category.name} {/* Assuming category has a name field */}
             </p>
-            <p className="font-bold md:text-2xl">
+            <p className="font-bold md:text-2xl pl-2 md:pl-0">
               <span className="text-red-500">₹</span>
               <span>{productData.price}</span>
               <span className="pl-4 text-sm line-through">{productData.oldPrice}</span>
             </p>
+            <div>
+              <p className="text-slate-600 font-medium pl-2 md:pl-0">Description:</p>
+              <p>{productData.description}</p>
+            </div>
             <div className="flex gap-3">
               {/* <button
                 onClick={handleBuy}
@@ -72,20 +76,17 @@ const SingleRecipeDetails = () => {
               </button> */}
               <button
                 onClick={handleAddCartProduct}
-                className="bg-yellow-500 py-1 mt-2 rounded hover:bg-yellow-600 min-w-[100px]"
+                className="bg-yellow-500 py-1 ml-2 md:ml-0 mt-2 rounded hover:bg-yellow-600 min-w-[100px]"
               >
                 Add Cart
               </button>
             </div>
-            <div>
-              <p className="text-slate-600 font-medium">Description:</p>
-              <p>{productData.description}</p>
-            </div>
+
           </div>
         </div>
       </div>
       {/* Uncomment and use your related products component if needed */}
-      <RelatedProduct heading={"Related Product"} category={productData?.category}/>
+      <RelatedProduct heading={"Related Product"} category={productData?.category} />
     </div>
   );
 };

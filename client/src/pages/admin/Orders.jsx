@@ -18,10 +18,12 @@ const Orders = () => {
     {
       header: "S.no",
       accessor: "sNo", // updated accessor
+      className: "hidden md:table-cell",
     },
     {
       header: "Order ID",
       accessor: "_id", // Updated to show Order ID
+      
     },
     {
       header: "Total Amount",
@@ -55,7 +57,7 @@ const Orders = () => {
       >
         <td className="hidden md:table-cell pl-3">{index + 1}</td>
         <td className="flex items-center gap-4 p-4">
-          <h3 className="font-semibold">{order._id}</h3> {/* Displaying Order ID */}
+          <h3 className="font-semibold md:w-full w-[90px] overflow-scroll scrollbar-none scroll-smooth transition-all">{order._id}</h3> {/* Displaying Order ID */}
         </td>
         <td className="hidden md:table-cell">₹ {order.totalAmount}</td> {/* Displaying total amount */}
         <td className={`hidden md:table-cell`}><div className={`${statusStyle} text-center rounded-full ml-5 mr-5 cursor-pointer`}>{order.status}</div> </td> {/* Conditional styling for status */}

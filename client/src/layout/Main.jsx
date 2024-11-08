@@ -2,10 +2,11 @@ import React, { useState } from 'react'
 import { Outlet } from 'react-router-dom'
 import { Footer, Navbar } from '../components'
 import LoadingSpinner from '../components/LoadingSpinner'
+import MobailFooter from '../components/MobailFooter'
 
 const Main = () => {
 
-    const [loading,setLoading] = useState(false)
+    const [loading, setLoading] = useState(false)
 
     return (
         <div className="bg-white h-full ">
@@ -18,6 +19,9 @@ const Main = () => {
                         <Outlet />
                     </div>
                     <Footer />
+                    <div className='fixed w-full bottom-0 left-0 bg-white'>
+                        <MobailFooter />
+                    </div>
                 </div>
             )}
         </div>

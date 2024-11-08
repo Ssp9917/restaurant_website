@@ -21,6 +21,11 @@ import Contact from "../pages/user/Contact";
 import EditCategory from "../pages/admin/EditCategory";
 import EditRecipe from "../pages/admin/EditRecipe";
 import OrderView from "../pages/admin/OrderView";
+import Search from "../components/Search";
+import Profile from "../components/Profile";
+import CategoryProduct from "../pages/user/CategoryProduct";
+import Food from "../pages/user/Food";
+import Users from "../pages/admin/Users";
 
 
 
@@ -64,6 +69,22 @@ const router = createBrowserRouter([
       {
         path:"/contact",
         element:<Contact/>
+      },
+      {
+        path:"/category/:categoryId",
+        element:<CategoryProduct/>
+      },
+      {
+        path:"/search",
+        element:<Search/>
+      },
+      {
+        path:"/profile",
+        element:<Profile/>
+      },
+      {
+        path:"/food",
+        element:<Food/>
       }
     ]
   },
@@ -118,6 +139,10 @@ const router = createBrowserRouter([
       {
         path:"order/:orderId",
         element:<OrderView/>
+      },
+      {
+        path:"users",
+        element:<Users/>
       }
     ]
   },

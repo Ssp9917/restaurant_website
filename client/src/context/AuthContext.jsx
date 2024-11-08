@@ -60,12 +60,23 @@ const AuthContextProvider = ({ children }) => {
         console.log(data)
         try {
             const response = await axios.post('/auth/login', data);
+            setToken(response.data.token); // Set the token in state
+            setUser(response.data.user); // Set the user in state
             return response.data;
         } catch (error) {
             console.error('Login error:', error);
             throw error;
         }
-    }
+    };
+
+
+    const handleMenuClick = () => {
+        if (window.innerWidth <= 768) {
+            // Scroll to the top
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+    };
+
 
 
     const logout = async () => {
@@ -85,7 +96,7 @@ const AuthContextProvider = ({ children }) => {
     };
 
     return (
-        <AuthContext.Provider value={{ user, loading, token, signup, logout,login }}>
+        <AuthContext.Provider value={{ user, loading, token, signup, logout,login,handleMenuClick }}>
             {children}
         </AuthContext.Provider>
     );

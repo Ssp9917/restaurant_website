@@ -12,16 +12,16 @@ export const getAllCategory = async (req, res) => {
 };
 
 // getCategoryById
-export const getCategoryById = async (req,res) => {
+export const getCategoryById = async (req, res) => {
 
-  const {id} = req.params
+  const { id } = req.params
 
   try {
     const category = await Category.findById(id);
     res.status(200).json(category);
   } catch (error) {
-    console.log("Error in getCategoryById controller",error.message)
-    res.status(500).json({message:"Internal server error"});
+    console.log("Error in getCategoryById controller", error.message)
+    res.status(500).json({ message: "Internal server error" });
   }
 }
 
@@ -29,8 +29,9 @@ export const getCategoryById = async (req,res) => {
 export const addCategory = async (req, res) => {
   try {
     const { name } = req.body;
+    const categoryImage = req.file ? req.file.path : null;
 
-    console.log(name)
+    console.log(name, categoryImage)
 
     // Check if the category name already exists
     const existingCategory = await Category.findOne({ name });
@@ -39,7 +40,7 @@ export const addCategory = async (req, res) => {
     }
 
     // Create and save the new category
-    const category = new Category({ name });
+    const category = new Category({ name, categoryImage });
     await category.save();
 
     res.status(201).json({ message: "Category added successfully", category });
@@ -54,7 +55,11 @@ export const editCategory = async (req, res) => {
   try {
     const { id } = req.params; // Get category ID from request parameters
     const updatedData = req.body;
-    console.log(req.body)
+
+    // If an image is uploaded, add its path to updatedData
+    if (req.file) {
+      updatedData.categoryImage = req.file.path; // Store the image path
+    }
 
     const updatedCategory = await Category.findByIdAndUpdate(id, updatedData, {
       new: true, // Return the updated document
@@ -70,6 +75,7 @@ export const editCategory = async (req, res) => {
     res.status(500).json({ message: 'Error updating category', error: error.message });
   }
 };
+
 
 
 

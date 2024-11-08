@@ -9,6 +9,10 @@ const categorySchema = new Schema({
     minlength: 2,
     maxlength: 50,
   },
+  categoryImage: {
+    type: String, // Store the file path of the uploaded image
+    required: false,
+  },
   createdAt: {
     type: Date,
     default: Date.now,

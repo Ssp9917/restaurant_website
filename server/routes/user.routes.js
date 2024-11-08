@@ -4,6 +4,7 @@ import {
     logout,
     signup,
     login,
+    getAllUsers,
 } from '../controllers/user.controller.js';
 
 const authRouter = express.Router();
@@ -14,5 +15,7 @@ authRouter.post('/signup', signup);
 authRouter.post('/login', login);
 // Logout Route
 authRouter.get('/logout', logout);
+// get all user
+authRouter.get('/getAllUser',getAllUsers)
 
 export default authRouter;

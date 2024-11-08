@@ -5,6 +5,7 @@ import { toast } from "react-hot-toast";
 import { loadStripe } from "@stripe/stripe-js";
 import { useNavigate } from "react-router-dom";
 import { AuthContext } from "../../context/AuthContext";
+import BackButton from "../../components/BackIcon";
 
 const Cart = () => {
     const productCartItem = useSelector((state) => state.cart.items);
@@ -88,14 +89,12 @@ const Cart = () => {
 
     return (
         <div className="p-4 md:p-6">
-            <h2 className="text-lg md:text-2xl font-bold text-slate-600">
-                Your Cart Items
-            </h2>
+           <h1 className="text-2xl font-bold mb-6"> <span><BackButton/></span>Cart</h1>
 
             {productCartItem.length > 0 ? (
-                <div className="my-4 flex flex-col md:flex-row gap-4">
+                <div className="my-4  flex flex-col  md:flex-row gap-4">
                     {/* Display cart items */}
-                    <div className="w-full max-w-3xl">
+                    <div className="w-full max-w-3xl flex flex-col gap-3">
                         {productCartItem.map((el) => (
                             <CartProduct
                                 key={el._id}

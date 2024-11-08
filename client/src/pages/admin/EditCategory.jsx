@@ -6,26 +6,39 @@ import { useParams } from 'react-router-dom';
 const EditCategory = () => {
   const { categoryId } = useParams();
   const [name, setName] = useState('');
-  
+  const [image, setImage] = useState(null); // State for image
+
   // Fetch the category data based on the categoryId
   const { data: categoryData, isLoading: isFetching } = useGetCategoryByIdQuery(categoryId);
-  
+
   const [editCategory, { isLoading: isSaving }] = useEditCategoryMutation();
 
-  // Pre-fill the input with the fetched category name when data is loaded
+  // Pre-fill the input with the fetched category data when available
   useEffect(() => {
     if (categoryData) {
       setName(categoryData.name);
+      setImage(categoryData.image); // Set the existing image if present
     }
   }, [categoryData]);
 
+  const handleImageChange = (e) => {
+    setImage(e.target.files[0]);
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
+
+    const formData = new FormData();
+    formData.append('name', name);
+    if (image) {
+      formData.append('categoryImage', image);
+    }
+
     try {
       // Call the mutation function to edit the category
-      const response = await editCategory({ id: categoryId, name }).unwrap();
-      console.log("Mutation response:", response);
-  
+      const response = await editCategory({ id: categoryId, data: formData }).unwrap();
+      console.log('Mutation response:', response);
+
       // Show a success message with SweetAlert2
       Swal.fire({
         title: 'Success!',
@@ -44,7 +57,6 @@ const EditCategory = () => {
       });
     }
   };
-  
 
   if (isFetching) {
     return <p>Loading category data...</p>;
@@ -66,6 +78,19 @@ const EditCategory = () => {
           className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
           placeholder="Enter category name"
           required
+        />
+      </div>
+
+      <div className="mb-4">
+        <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="image">
+          Category Image
+        </label>
+        <input
+          type="file"
+          id="image"
+          onChange={handleImageChange}
+          className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+          accept="image/*"
         />
       </div>
 

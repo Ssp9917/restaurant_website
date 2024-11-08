@@ -5,6 +5,7 @@ import { IoClose } from "react-icons/io5";
 import { Link, useNavigate } from "react-router-dom";
 import { toast } from "react-hot-toast";
 import { AuthContext } from "../context/AuthContext";
+import Swal from 'sweetalert2'
 // import { useDispatch, useSelector } from "react-redux";
 // import { loginRedux } from "../redux/userSlice";
 
@@ -43,6 +44,14 @@ const Login = () => {
     e.preventDefault()
     try {
       const response = await login(data);
+
+      Swal.fire({
+        position: "center",
+        icon: "success",
+        title: "logout successfully",
+        showConfirmButton: false,
+        timer: 1500
+      });
      
       console.log(response)
       setTimeout(() => {
@@ -90,7 +99,7 @@ const Login = () => {
             </span>
           </div>
 
-          <button className="w-full max-w-[150px] m-auto  bg-red-500 hover:bg-red-600 cursor-pointer  text-white text-xl font-medium text-center py-1 rounded-full mt-4">
+          <button className="w-full max-w-[150px] m-auto  bg-red-500 hover:bg-red-600 cursor-pointer  text-white text-xl font-medium text-center py-1 rounded-full mt-2">
             Login
           </button>
         </form>

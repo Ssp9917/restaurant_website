@@ -10,12 +10,14 @@ import Swal from 'sweetalert2'
 const Navbar = () => {
 
   const [showMenu, setShowMenu] = useState(false);
+
   // const dispatch = useDispatch();
   const { user: userData, logout } = useContext(AuthContext)
 
   const handleShowMenu = () => {
     setShowMenu((preve) => !preve);
   };
+
   const handleLogout = async () => {
     await logout()
     Swal.fire({
@@ -27,7 +29,7 @@ const Navbar = () => {
     });
   };
 
-  const cartItemNumber = useSelector((state) => state.cart.items)
+  const cartItemNumber = useSelector((state) => state.cart.items);
 
   return (
     <header className="fixed shadow-md md:w-[1280px] w-full h-16 px-2 md:px-4 z-50 bg-white">
@@ -83,7 +85,6 @@ const Navbar = () => {
                   </Link>
                 </nav>
                 {userData != null ? (
-
                   <div className='flex flex-col'>
                     <Link
                       to={"/order"}

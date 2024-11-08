@@ -87,3 +87,21 @@ export const logout = (req, res) => {
         res.redirect('/');
     });
 }
+
+
+// get all user
+export const getAllUsers = async (req,res) => {
+    try {
+        
+        const users = await User.find();
+
+        if(users){
+            res.status(200).json({message:"get all users successfully",users:users})
+        }
+
+
+    } catch (error) {
+        console.log("Error in get All users", error.message);
+        res.status(500).json({message:"Internal Server Error"});
+    }
+}

@@ -43,7 +43,7 @@ const Banner = () => {
             <Slider {...sliderSettings}>
                 {data?.map((slide, index) => (
                     <div key={index}>
-                        <img src={backendUrl + '/' + slide.bannerImage} alt="" className='h-screen w-full object-fill' />
+                        <img src={backendUrl + '/' + slide.bannerImage} alt="" className='md:h-screen h-[50vh] w-full object-fill' />
                     </div>
                 ))}
             </Slider>

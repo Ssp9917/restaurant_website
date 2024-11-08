@@ -3,11 +3,14 @@ import FilterProduct from './FilterProduct';
 import CardFeature from './CardFeature';
 import { useGetAllCategoryQuery } from '../api/categorySlice';
 import { useGetAllRecipeQuery } from '../api/recipeSlice';
+import { useNavigate } from 'react-router-dom';
 
 const AllProduct = ({ heading }) => {
   const { data: categoryList } = useGetAllCategoryQuery();
 
-  const { data: homeProductCartList } = useGetAllRecipeQuery()
+  const { data: homeProductCartList } = useGetAllRecipeQuery();
+
+  const navigate = useNavigate()
 
   const [filterby, setFilterBy] = useState("all");
   const [dataFilter, setDataFilter] = useState([]);
@@ -17,6 +20,7 @@ const AllProduct = ({ heading }) => {
   }, [homeProductCartList]);
 
 
+  // for big devices
   const handleFilterProduct = (category) => {
 
     console.log(category)
@@ -33,36 +37,55 @@ const AllProduct = ({ heading }) => {
     }
   };
 
+
+  // mobail devices
+  const handleNavigate = (category) => {
+    navigate(`/category/${category._id}`)
+  }
+
+  // Handle click event based on device size
+  const handleClick = (category) => {
+    if (window.innerWidth >= 768) { // md and larger
+      handleFilterProduct(category);
+    } else { // sm and smaller
+      handleNavigate(category);
+    }
+  };
+
   return (
     <div className="mt-5">
-      <h2 className="font-bold text-2xl text-slate-800 mb-4">{heading}</h2>
+      <h2 className="font-bold text-2xl text-slate-800 mb-4 pl-2">{heading}</h2>
 
-      <div className="flex max-w-[350px] gap-4 md:justify-center justify-start overflow-scroll scrollbar-none">
-        <FilterProduct
-          category={'All'}
-          key={'all'}
-          onClick={() => handleFilterProduct('all')}
-          isActive={'all' === filterby.toLowerCase()}
-        />
-        {categoryList?.length != 0 ? (
+      <div className="flex justify-start flex-wrap">
+        <div className='hidden md:block'>
+          <FilterProduct
+            category={'All'}
+            key={'all'}
+            onClick={() => handleFilterProduct('all')}
+            isActive={'all' === filterby.toLowerCase()}
+          />
+        </div>
+        {categoryList?.length !== 0 ? (
           categoryList?.map((el, index) => (
             <FilterProduct
               category={el.name || el}
+              image={el.categoryImage}
               key={el._id || index}
-              onClick={() => handleFilterProduct(el)}
+              onClick={() => handleClick(el)}
               isActive={el.name.toLowerCase() === filterby.toLowerCase()}
             />
           ))
         ) : (
           <div className="min-h-[150px] flex justify-center items-center">
-            <p>No Recipes Found</p>
+            <p>No Category Found</p>
           </div>
         )}
       </div>
 
-      <div className="flex flex-wrap justify-center gap-4 my-4">
+
+      <div className="md:grid hidden  md:grid-cols-7 grid-cols-2 place-items-center  my-4">
         {dataFilter?.length > 0 ? (
-          dataFilter.slice(0,15).map((el) => (
+          dataFilter.slice(0, 14).map((el) => (
             <CardFeature
               key={el._id}
               id={el._id}

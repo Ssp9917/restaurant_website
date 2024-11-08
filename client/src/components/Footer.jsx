@@ -15,7 +15,7 @@ const Footer = () => {
   return (
     <footer className="footer__container">
       <div className="footer_section1">
-        <img src={logo} alt="zomato logo" />
+        <img src={logo} alt="zomato logo" className="mb-3" />
         <div className="section1__button_container">
           <button>
             {/* <img

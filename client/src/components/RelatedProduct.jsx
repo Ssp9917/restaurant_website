@@ -18,7 +18,7 @@ const RelatedProduct = ({ heading, category }) => {
 
     return (
         <div className="my-5">
-            <h2 className="font-bold text-2xl text-slate-800 mb-4">{heading}</h2>
+            <h2 className="font-bold text-2xl text-slate-800 mb-4 pl-2">{heading}</h2>
             <div className="flex flex-wrap justify-center gap-4 my-4">
                 {dataFilter?.length > 0 ? (
                     dataFilter.map((el) => (
