@@ -11,7 +11,7 @@ const Table = ({ columns, renderRow, data }) => (
         </tr>
       </thead>
       <tbody>
-        {data && data.map((item, index) => renderRow(item, index))} {/* Pass index */}
+        {data && data?.map((item, index) => renderRow(item, index))} {/* Pass index */}
       </tbody>
     </table>
   );

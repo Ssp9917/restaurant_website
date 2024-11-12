@@ -6,6 +6,8 @@ import { TbCategoryPlus } from "react-icons/tb";
 import { AiFillProduct } from "react-icons/ai";
 import { PiFlagBannerFoldFill } from "react-icons/pi";
 import { FaJediOrder } from "react-icons/fa";
+import { icon } from 'leaflet';
+import { BiSolidOffer } from "react-icons/bi";
 
 const Sidebar = () => {
 
@@ -37,6 +39,11 @@ const Sidebar = () => {
                     label: "Users",
                     href: "/admin/users",
                     icon: <FaUserAlt />
+                },
+                {
+                    label:"Offers",
+                    href:"/admin/offers",
+                    icon:<BiSolidOffer/>
                 },
                 {
                     label: "Orders",

@@ -7,7 +7,14 @@ import { AuthContext } from '../context/AuthContext';
 import { Link } from 'react-router-dom';
 
 const MobailFooter = () => {
-    const { user,handleMenuClick } = useContext(AuthContext);
+    const { user } = useContext(AuthContext);
+
+    const handleMenuClick = () => {
+        if (window.innerWidth <= 768) {
+            // Scroll to the top
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+    };
 
     const menu = [
         {

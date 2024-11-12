@@ -1,26 +1,28 @@
-import React from 'react';
+import React, { useState } from 'react';
 import Table from '../../components/Table';
 import { Link, useNavigate } from 'react-router-dom';
-import { FaEye } from "react-icons/fa";
-import { MdDeleteForever } from "react-icons/md";
-import { FaEdit } from "react-icons/fa";
+import { FaEye, FaEdit, FaFilter, FaPlusCircle } from "react-icons/fa";
 import TableSearch from '../../components/TableSearch';
-import { FaFilter } from "react-icons/fa";
-import { FaSortAmountDown } from "react-icons/fa";
-import { FaPlusCircle } from "react-icons/fa";
+import Pagination from './Pagination';
 import { useDeleteRecipeMutation, useGetAllRecipeQuery } from '../../api/recipeSlice';
 import Swal from 'sweetalert2';
+import { searchItems, paginateItems, sortItems } from '../../utility/utils';
+import SortDropdown from './ShortDropdown';
+import { MdDeleteForever } from "react-icons/md";
 
 const Recipe = () => {
-  const navigate = useNavigate()
+  const navigate = useNavigate();
+  const { data: homeProductCartList = [] } = useGetAllRecipeQuery();
+  const [searchQuery, setSearchQuery] = useState('');
+  const [currentPage, setCurrentPage] = useState(1);
+  const [sortOrder, setSortOrder] = useState('asc');
+  const [sortKey, setSortKey] = useState('name');
+  const itemsPerPage = 10;
+  const [deleteRecipe] = useDeleteRecipeMutation();
+  
 
-  const { data: homeProductCartList } = useGetAllRecipeQuery()
-
-  console.log(homeProductCartList)
 
   const backendUrl = import.meta.env.VITE_BACKEND_BASE_URL
-
-  const [deleteRecipe] = useDeleteRecipeMutation()
 
   const handleDelete = async (id) => {
     Swal.fire({
@@ -32,86 +34,48 @@ const Recipe = () => {
       cancelButtonColor: "#d33",
       confirmButtonText: "Yes, delete it!",
     }).then(async (result) => {
-      // console.log(result)
       if (result.isConfirmed) {
         try {
-          // Perform deletion via mutation
           await deleteRecipe(id).unwrap();
-
-          Swal.fire({
-            title: "Deleted!",
-            text: "The item has been deleted.",
-            icon: "success",
-          });
+          Swal.fire("Deleted!", "The item has been deleted.", "success");
         } catch (error) {
-          // Handle error if deletion fails
-          Swal.fire({
-            title: "Error!",
-            text: error?.data?.message || "Failed to delete the item.",
-            icon: "error",
-          });
+          Swal.fire("Error!", error?.data?.message || "Failed to delete the item.", "error");
         }
       }
-    })
-  }
+    });
+  };
 
+  // Apply search, sort, and pagination
+  const filteredData = searchItems(homeProductCartList, searchQuery, ['name', 'category.name']);
+  const sortedData = sortItems(filteredData, sortKey, sortOrder);
+  const paginatedData = paginateItems(sortedData, currentPage, itemsPerPage);
+
+  const handleSortChange = (order, key) => {
+    setSortOrder(order);
+    setSortKey(key);
+  };
 
   const columns = [
-    {
-      header: "S.no",
-      accessor: "S.no",
-      className: "hidden md:table-cell",
-    },
-    {
-      header: "Recipe Name",
-      accessor: "teacherId",
-      // className: "hidden md:table-cell",
-    },
-    {
-      header: "Category",
-      accessor: "category",
-      className: "hidden md:table-cell",
-    },
-    {
-      header: "Price",
-      accessor: "price",
-      className: "hidden md:table-cell",
-    },
-    {
-      header: "Actions",
-      accessor: "action",
-    },
+    { header: "S.no", accessor: "S.no", className: "hidden md:table-cell" },
+    { header: "Recipe Name", accessor: "name" },
+    { header: "Category", accessor: "category.name", className: "hidden md:table-cell" },
+    { header: "Price", accessor: "price", className: "hidden md:table-cell" },
+    { header: "Actions", accessor: "action" },
   ];
 
-
-  const renderRow = (homeProductCartList, index) => (
-    <tr
-      key={homeProductCartList._id}
-      className="border-b border-gray-200 even:bg-slate-50 text-sm hover:bg-lamaPurpleLight"
-    >
-      <td className="hidden md:table-cell pl-3">{index + 1}</td>
+  const renderRow = (item, index) => (
+    <tr key={item._id} className="border-b border-gray-200 even:bg-slate-50 text-sm hover:bg-lamaPurpleLight">
+      <td className="hidden md:table-cell pl-3">{(currentPage - 1) * itemsPerPage + index + 1}</td>
       <td className="flex items-center gap-4 p-4">
-        <img
-          src={backendUrl + '/' + homeProductCartList.image}
-          alt=""
-          width={40}
-          height={40}
-          className="md:hidden xl:block w-10 h-10 rounded-full object-cover"
-        />
-        <div className="flex flex-col">
-          <h3 className="font-semibold">{homeProductCartList.name}</h3>
-        </div>
+        <img src={`${backendUrl}/${item.image}`} alt="" width={40} height={40} className="md:hidden xl:block w-10 h-10 rounded-full object-cover" />
+        <h3 className="font-semibold">{item.name}</h3>
       </td>
-      <td className="hidden md:table-cell">{homeProductCartList.category.name}</td>
-      <td className="hidden md:table-cell">₹ {homeProductCartList.price}</td>
+      <td className="hidden md:table-cell">{item.category.name}</td>
+      <td className="hidden md:table-cell">₹ {item.price}</td>
       <td>
         <div className="flex items-center gap-2">
-          <button className="h-7 gap-2 w-full flex items-center justify-center rounded-full bg-lamaSky">
-            {/* <div><FaEye size={16} /></div> */}
-            <Link to={`/admin/recipe/editRecipe/${homeProductCartList._id}`}><div><FaEdit size={16} /></div></Link>
-            <Link><div onClick={() => handleDelete(homeProductCartList._id)}><MdDeleteForever size={16} /></div></Link>
-
-          </button>
+          <Link to={`/admin/recipe/editRecipe/${item._id}`}><FaEdit size={16} /></Link>
+          <MdDeleteForever size={16} onClick={() => handleDelete(item._id)} />
         </div>
       </td>
     </tr>
@@ -119,33 +83,30 @@ const Recipe = () => {
 
   return (
     <>
-      {/* TOP */}
+      {/* Search, Sort, and Action Buttons */}
       <div className="flex items-center justify-between">
         <h1 className="hidden md:block text-lg font-semibold">All Recipe</h1>
         <div className="flex flex-col md:flex-row items-center gap-4 w-full md:w-auto">
-          <TableSearch />
-          <div className="flex items-center gap-4 self-end">
-            <button className="w-8 h-8 flex items-center justify-center rounded-full bg-lamaYellow">
-              <FaFilter size={14} />
-            </button>
-            <button className="w-8 h-8 flex items-center justify-center rounded-full bg-lamaYellow">
-              <FaSortAmountDown size={14} />
-            </button>
-            <button className="w-8 h-8 flex items-center justify-center rounded-full bg-lamaYellow">
-              <FaPlusCircle size={14} onClick={() => navigate('/admin/recipe/addRecipe')} />
-            </button>
+          <TableSearch searchQuery={searchQuery} setSearchQuery={setSearchQuery} />
+          <div className="flex items-center gap-4">
+            <SortDropdown onSortChange={handleSortChange} />
+            <button className="w-8 h-8 flex items-center justify-center rounded-full bg-lamaYellow" onClick={() => navigate('/admin/recipe/addRecipe')}><FaPlusCircle size={14} /></button>
           </div>
         </div>
       </div>
 
-      {/* LIST */}
-      <Table columns={columns} renderRow={renderRow} data={homeProductCartList} />
+      {/* Table */}
+      <Table columns={columns} renderRow={renderRow} data={paginatedData} />
 
-      {/* PAGINATION */}
+      {/* Pagination */}
+      <Pagination
+        currentPage={currentPage}
+        totalItems={sortedData.length}
+        itemsPerPage={itemsPerPage}
+        onPageChange={setCurrentPage}
+      />
     </>
+  );
+};
 
-
-  )
-}
-
-export default Recipe
+export default Recipe;

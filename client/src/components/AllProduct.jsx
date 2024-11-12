@@ -56,22 +56,22 @@ const AllProduct = ({ heading }) => {
     <div className="mt-5">
       <h2 className="font-bold text-2xl text-slate-800 mb-4 pl-2">{heading}</h2>
 
-      <div className="flex justify-start flex-wrap">
-        <div className='hidden md:block'>
+      <div className="overflow-x-auto scrollbar-none md:overflow-hidden flex md:justify-center gap-2">
+        {/* <div className='hidden md:block'>
           <FilterProduct
             category={'All'}
             key={'all'}
             onClick={() => handleFilterProduct('all')}
             isActive={'all' === filterby.toLowerCase()}
           />
-        </div>
+        </div> */}
         {categoryList?.length !== 0 ? (
           categoryList?.map((el, index) => (
             <FilterProduct
               category={el.name || el}
               image={el.categoryImage}
               key={el._id || index}
-              onClick={() => handleClick(el)}
+              onClick={() => handleNavigate(el)}
               isActive={el.name.toLowerCase() === filterby.toLowerCase()}
             />
           ))
@@ -83,7 +83,7 @@ const AllProduct = ({ heading }) => {
       </div>
 
 
-      <div className="md:grid hidden  md:grid-cols-7 grid-cols-2 place-items-center  my-4">
+      {/* <div className="md:grid hidden  md:grid-cols-7 grid-cols-2 place-items-center  my-4">
         {dataFilter?.length > 0 ? (
           dataFilter.slice(0, 14).map((el) => (
             <CardFeature
@@ -101,7 +101,7 @@ const AllProduct = ({ heading }) => {
             <p>No Product Found</p>
           </div>
         )}
-      </div>
+      </div> */}
     </div>
   );
 };

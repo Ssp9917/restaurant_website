@@ -8,16 +8,18 @@ import TableSearch from '../../components/TableSearch';
 import { FaFilter } from "react-icons/fa";
 import { FaSortAmountDown } from "react-icons/fa";
 import { FaPlusCircle } from "react-icons/fa";
-import { useGetAllBannersQuery } from '../../api/bannerSlice';
+import { useDeleteBannerMutation, useGetAllBannersQuery } from '../../api/bannerSlice';
+import Swal from 'sweetalert2';
 
 const Banners = () => {
   const navigate = useNavigate();
-  
- const {data} = useGetAllBannersQuery();
 
- console.log(data)
+  const { data } = useGetAllBannersQuery();
+  const [deleteBanner] = useDeleteBannerMutation();
 
- const backendUrl = import.meta.env.VITE_BACKEND_BASE_URL
+  console.log(data)
+
+  const backendUrl = import.meta.env.VITE_BACKEND_BASE_URL
 
   // console.log(homeProductCartList)
 
@@ -43,16 +45,37 @@ const Banners = () => {
     },
   ];
 
+  const handleDelete = async (id) => {
+    Swal.fire({
+      title: "Are you sure?",
+      text: "You won't be able to revert this!",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Yes, delete it!",
+    }).then(async (result) => {
+      if (result.isConfirmed) {
+        try {
+          await deleteBanner(id).unwrap();
+          Swal.fire("Deleted!", "The item has been deleted.", "success");
+        } catch (error) {
+          Swal.fire("Error!", error?.data?.message || "Failed to delete the item.", "error");
+        }
+      }
+    });
+  };
 
-  const renderRow = (data,index) => (
+
+  const renderRow = (data, index) => (
     <tr
       key={data._id}
       className="border-b border-gray-200 even:bg-slate-50 text-sm hover:bg-lamaPurpleLight"
     >
-      <td className="hidden md:table-cell pl-3">{index+1}</td>
+      <td className="hidden md:table-cell pl-3">{index + 1}</td>
       <td className="flex items-center gap-4 p-4">
         <img
-          src={backendUrl+'/'+data.bannerImage}
+          src={backendUrl + '/' + data.bannerImage}
           alt=""
           width={40}
           height={40}
@@ -63,11 +86,11 @@ const Banners = () => {
       {/* <td className="hidden md:table-cell">₹ {homeProductCartList.price}</td> */}
       <td>
         <div className="flex items-center gap-2">
-            <button className="h-7 gap-2 w-full flex items-center justify-center rounded-full bg-lamaSky">
-              {/* <div><FaEye size={16} /></div> */}
-              <div><FaEdit size={16} /></div>
-              <div><MdDeleteForever size={16} /></div>
-            </button>
+          <button className="h-7 gap-2 w-full flex items-center rounded-full bg-lamaSky">
+            {/* <div><FaEye size={16} /></div> */}
+            <Link to={`/admin/banner/editBanner/${data._id}`}><FaEdit size={16} /></Link>
+            <div><MdDeleteForever size={16} onClick={() => handleDelete(data._id)} /></div>
+          </button>
         </div>
       </td>
     </tr>
@@ -88,7 +111,7 @@ const Banners = () => {
               <FaSortAmountDown size={14} />
             </button>
             <button className="w-8 h-8 flex items-center justify-center rounded-full bg-lamaYellow">
-              <FaPlusCircle size={14} onClick={()=>navigate('/admin/banner/addBanner')} />
+              <FaPlusCircle size={14} onClick={() => navigate('/admin/banner/addBanner')} />
             </button>
           </div>
         </div>

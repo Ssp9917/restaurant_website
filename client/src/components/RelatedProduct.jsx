@@ -10,7 +10,7 @@ const RelatedProduct = ({ heading, category }) => {
     const [dataFilter, setDataFilter] = useState([]);
 
     useEffect(() => {
-        const filtered = homeProductCartList.filter(
+        const filtered = homeProductCartList?.filter(
             (el) => el.category.name.toLowerCase() === category.name.toLowerCase()
         );
         setDataFilter(filtered)
@@ -19,7 +19,7 @@ const RelatedProduct = ({ heading, category }) => {
     return (
         <div className="my-5">
             <h2 className="font-bold text-2xl text-slate-800 mb-4 pl-2">{heading}</h2>
-            <div className="flex flex-wrap justify-center gap-4 my-4">
+            <div className="flex flex-wrap pl-2 gap-4 my-4">
                 {dataFilter?.length > 0 ? (
                     dataFilter.map((el) => (
                         <CardFeature

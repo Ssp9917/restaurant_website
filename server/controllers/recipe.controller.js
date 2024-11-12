@@ -16,10 +16,10 @@ export const getAllRecipes = async (req, res) => {
 // Add a new recipe
 export const addRecipe = async (req, res) => {
   try {
-    const { name, category, price, oldPrice, discount, description, rating, bestSeller } = req.body;
+    const { name, category, price, oldPrice, discount, description, rating, bestSeller,topSellingProduct,featuredProduct } = req.body;
     const image = req.file.path; // Get the uploaded image path
 
-    console.log(category, name, image, price, oldPrice, discount, description, rating, bestSeller);
+    // console.log(category, name, image, price, oldPrice, discount, description, rating, bestSeller);
 
     // Check if category exists
     const existingCategory = await Category.findById(category);
@@ -37,7 +37,9 @@ export const addRecipe = async (req, res) => {
       discount,
       description,
       rating,
-      bestSeller: bestSeller === 'true' // Convert bestSeller to boolean
+      bestSeller,
+      topSellingProduct,
+      featuredProduct
     });
     await newRecipe.save();
 
@@ -72,7 +74,7 @@ export const getSingleRecipeDetails = async (req, res) => {
 export const editRecipe = async (req, res) => {
   try {
     const { id } = req.params;
-    const { name, category, price, oldPrice, discount, description, rating, bestSeller } = req.body;
+    const { name, category, price, oldPrice, discount, description, rating, bestSeller,topSellingProduct,featuredProduct } = req.body;
     const image = req.file ? req.file.path : null; // If an image is uploaded, get the path; otherwise, it stays null
 
     // Check if the recipe exists
@@ -97,7 +99,11 @@ export const editRecipe = async (req, res) => {
     recipe.discount = discount || recipe.discount;
     recipe.description = description || recipe.description;
     recipe.rating = rating || recipe.rating;
-    recipe.bestSeller = bestSeller !== undefined ? bestSeller === 'true' : recipe.bestSeller;
+    recipe.bestSeller = bestSeller || recipe.bestSeller;
+    recipe.featuredProduct = featuredProduct || recipe.featuredProduct;
+    recipe.topSellingProduct = topSellingProduct || recipe.topSellingProduct;
+
+    
     if (image) recipe.image = image; // Update image if a new one is uploaded
 
     // Save the updated recipe

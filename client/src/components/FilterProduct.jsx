@@ -7,10 +7,10 @@ const FilterProduct = ({ category, onClick, isActive,image }) => {
 
   console.log(image)
   return (
-    <div onClick={onClick} className="w-[120px]">
+    <div onClick={onClick} className="w-[90px]">
       <div
-        className={`text-3xl p-5  rounded-3xl ml-2 cursor-pointer ${
-          isActive ? "bg-red-600 text-white" : "bg-gradient-to-tr from-violet-500 to-orange-300"
+        className={`text-3xl p-5  rounded-3xl  w-[90px]  cursor-pointer md:w-full h-[100px] flex justify-center items-center ${
+          isActive ? "bg-red-600 text-white" : ""
         }`}
       >
         {

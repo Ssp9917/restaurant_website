@@ -13,7 +13,27 @@ export const bannerSlice = apiSlice.injectEndpoints({
                 body: banner,
             }),
         }),
+
+        getSingleBanner: builder.query({
+            query: (id) => `banner/getSingleBanner/${id}`, // Adjust path as needed
+        }),
+
+        editBanner: builder.mutation({
+            query: ({ id, banner }) => ({
+                url: `banner/editBanners/${id}`,
+                method: 'PUT',
+                body: banner,
+            }),
+        }),
+
+        // Delete a recipe by ID
+        deleteBanner: builder.mutation({
+            query: (id) => ({
+                url: `banner/deleteBanner/${id}`,
+                method: 'DELETE',
+            }),
+        }),
     }),
 });
 
-export const { useGetAllBannersQuery,useAddBannersMutation } = bannerSlice;
+export const { useGetAllBannersQuery, useAddBannersMutation, useGetSingleBannerQuery, useEditBannerMutation,useDeleteBannerMutation } = bannerSlice;

@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { useParams, useNavigate } from 'react-router-dom'
 import { useGetSingleRecipeDetailsQuery, useEditRecipeMutation } from '../../api/recipeSlice'
 import { useGetAllCategoryQuery } from '../../api/categorySlice'
+import Swal from 'sweetalert2'
 
 
 const EditRecipe = () => {
@@ -22,6 +23,8 @@ const EditRecipe = () => {
     const [bestSeller, setBestSeller] = useState(false)
     const [category, setCategory] = useState('')
     const [image, setImage] = useState(null)
+    const [featuredProduct, setFeaturedProduct] = useState(false);
+    const [topSellingProduct, setTopSellingProduct] = useState(false)
 
     const [editRecipe, { isLoading: isUpdating }] = useEditRecipeMutation()
 
@@ -36,6 +39,8 @@ const EditRecipe = () => {
             setRating(recipe.rating)
             setBestSeller(recipe.bestSeller)
             setCategory(recipe.category?._id || '')
+            setFeaturedProduct(recipe.featuredProduct);
+            setTopSellingProduct(recipe.topSellingProduct);
             // Don't overwrite image because we don't want to pre-fill file input
         }
     }, [recipe])
@@ -53,6 +58,8 @@ const EditRecipe = () => {
         formData.append('rating', rating)
         formData.append('bestSeller', bestSeller)
         formData.append('category', category)
+        formData.append("featuredProduct", featuredProduct);
+        formData.append("topSellingProduct", topSellingProduct);
 
         // Add the image if there is one
         if (image) {
@@ -62,6 +69,13 @@ const EditRecipe = () => {
         try {
             // Send the formData to the API
             await editRecipe({ id: recipeId, recipe: formData }).unwrap()
+
+            Swal.fire({
+                title: 'Success!',
+                text: 'Recipe updated successfully.',
+                icon: 'success',
+                confirmButtonText: 'OK',
+            });
         } catch (err) {
             console.error('Failed to update recipe:', err)
         }
@@ -148,6 +162,26 @@ const EditRecipe = () => {
                         type="checkbox"
                         checked={bestSeller}
                         onChange={(e) => setBestSeller(e.target.checked)}
+                        className="mt-1 block"
+                    />
+                </div>
+
+                <div className='flex gap-2'>
+                    <label className="block text-sm font-medium text-gray-700">Featured Product</label>
+                    <input
+                        type="checkbox"
+                        checked={featuredProduct}
+                        onChange={(e) => setFeaturedProduct(e.target.checked)}
+                        className="mt-1 block"
+                    />
+                </div>
+
+                <div className='flex gap-2'>
+                    <label className="block text-sm font-medium text-gray-700">Top Selling Product</label>
+                    <input
+                        type="checkbox"
+                        checked={topSellingProduct}
+                        onChange={(e) => setTopSellingProduct(e.target.checked)}
                         className="mt-1 block"
                     />
                 </div>

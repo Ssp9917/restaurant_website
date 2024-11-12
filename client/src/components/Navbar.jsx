@@ -32,7 +32,7 @@ const Navbar = () => {
   const cartItemNumber = useSelector((state) => state.cart.items);
 
   return (
-    <header className="fixed shadow-md md:w-[1280px] w-full h-16 px-2 md:px-4 z-50 bg-white">
+    <header className="fixed z-[999999] shadow-md md:w-[1280px] w-full h-16 px-2 md:px-4  bg-white">
       {/* desktop */}
       <div className="flex items-center h-full justify-between">
         <Link to={""}>
@@ -44,7 +44,7 @@ const Navbar = () => {
         <div className="flex items-center gap-4 md:gap-7">
           <nav className="gap-4 md:gap-6 text-base md:text-lg hidden md:flex">
             <Link to={""}>Home</Link>
-            {/* <Link to={"menu/646b5548acd0a88a674b9429"}>Menu</Link> */}
+            <Link to={"food"}>Menu</Link>
             <Link to={"about"}>About</Link>
             <Link to={"contact"}>Contact</Link>
           </nav>

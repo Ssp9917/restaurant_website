@@ -64,7 +64,7 @@ const Orders = () => {
         <td className="hidden md:table-cell"> {new Date(order.createdAt).toLocaleDateString()} at {new Date(order.createdAt).toLocaleTimeString()}</td> {/* Displaying date & time */}
         <td>
           <div className="flex items-center gap-2">
-            <button className="h-7 gap-2 w-full flex items-center justify-center rounded-full bg-lamaSky">
+            <button className="h-7 gap-2 w-full flex items-center  rounded-full bg-lamaSky">
               <Link to={`/admin/order/${order._id}`}><div><FaEye size={16} /></div></Link>
               <div><MdDeleteForever size={16} /></div>
             </button>

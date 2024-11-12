@@ -26,6 +26,9 @@ import Profile from "../components/Profile";
 import CategoryProduct from "../pages/user/CategoryProduct";
 import Food from "../pages/user/Food";
 import Users from "../pages/admin/Users";
+import AddOffer from "../pages/admin/AddOffer";
+import Offers from "../pages/admin/Offers";
+import EditBanner from "../pages/admin/EditBanner";
 
 
 
@@ -133,6 +136,10 @@ const router = createBrowserRouter([
         element:<AddBanner/>
       },
       {
+        path:"banner/editBanner/:bannerId",
+        element:<EditBanner/>
+      },
+      {
         path:"order",
         element:<Orders/>
       },
@@ -143,6 +150,14 @@ const router = createBrowserRouter([
       {
         path:"users",
         element:<Users/>
+      },
+      {
+        path:"offers",
+        element:<Offers/>
+      },
+      {
+        path:"offer/addOffer",
+        element:<AddOffer/>
       }
     ]
   },

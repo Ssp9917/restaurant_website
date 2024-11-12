@@ -70,12 +70,7 @@ const AuthContextProvider = ({ children }) => {
     };
 
 
-    const handleMenuClick = () => {
-        if (window.innerWidth <= 768) {
-            // Scroll to the top
-            window.scrollTo({ top: 0, behavior: 'smooth' });
-        }
-    };
+   
 
 
 
@@ -96,7 +91,7 @@ const AuthContextProvider = ({ children }) => {
     };
 
     return (
-        <AuthContext.Provider value={{ user, loading, token, signup, logout,login,handleMenuClick }}>
+        <AuthContext.Provider value={{ user, loading, token, signup, logout,login }}>
             {children}
         </AuthContext.Provider>
     );

@@ -76,7 +76,7 @@ const Categories = () => {
       </td>
       <td>
         <div className="flex items-center gap-2">
-          <button className="h-7 gap-2 w-full flex items-center justify-center rounded-full bg-lamaSky">
+          <button className="h-7 gap-2 w-full flex items-center  rounded-full bg-lamaSky">
             <Link to={`/admin/category/editCategory/${categoryList._id}`}> <FaEdit size={16} /></Link>
             <Link onClick={() => handleDelete(categoryList._id)}><MdDeleteForever size={16} /></Link>
           </button>

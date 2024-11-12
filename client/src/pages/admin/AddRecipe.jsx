@@ -13,6 +13,8 @@ const AddRecipe = () => {
     const [description, setDescription] = useState('');
     const [rating, setRating] = useState('');
     const [bestSeller, setBestSeller] = useState(false);
+    const [featuredProduct, setFeaturedProduct] = useState(false);
+    const [topSellingProduct, setTopSellingProduct] = useState(false)
 
     const { data: categories } = useGetAllCategoryQuery();
     const [addRecipe, { isLoading }] = useAddRecipeMutation();
@@ -30,6 +32,8 @@ const AddRecipe = () => {
             formData.append("rating", rating);
             formData.append("bestSeller", bestSeller);
             formData.append("image", image);
+            formData.append("featuredProduct",featuredProduct);
+            formData.append("topSellingProduct",topSellingProduct)
 
             await addRecipe(formData).unwrap();
 
@@ -131,12 +135,33 @@ const AddRecipe = () => {
                     />
                 </div>
 
-                <div>
+                <div className='flex gap-2'>
                     <label className="block text-sm font-medium text-gray-700">Best Seller</label>
                     <input
                         type="checkbox"
                         checked={bestSeller}
                         onChange={(e) => setBestSeller(e.target.checked)}
+                        className="mt-1 block"
+                    />
+                </div>
+
+
+                <div className='flex gap-2'>
+                    <label className="block text-sm font-medium text-gray-700">Featured Product</label>
+                    <input
+                        type="checkbox"
+                        checked={featuredProduct}
+                        onChange={(e) => setFeaturedProduct(e.target.checked)}
+                        className="mt-1 block"
+                    />
+                </div>
+
+                <div className='flex gap-2'>
+                    <label className="block text-sm font-medium text-gray-700">Top Selling Product</label>
+                    <input
+                        type="checkbox"
+                        checked={topSellingProduct}
+                        onChange={(e) => setTopSellingProduct(e.target.checked)}
                         className="mt-1 block"
                     />
                 </div>

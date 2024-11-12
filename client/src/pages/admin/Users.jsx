@@ -75,7 +75,7 @@ const Users = () => {
         <td className="hidden md:table-cell">Verified</td>
         <td>
           <div className="flex items-center gap-2">
-            <button className="h-7 gap-2 w-full flex items-center justify-center rounded-full bg-lamaSky">
+            <button className="h-7 gap-2 w-full flex items-center  rounded-full bg-lamaSky">
               <Link
               //  to={`/admin/order/${user._id}`}
                ><div><FaEye size={16} /></div></Link>

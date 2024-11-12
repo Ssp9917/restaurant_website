@@ -42,7 +42,7 @@ const SingleRecipeDetails = () => {
   return (
     <div>
       <div className="p-2 md:p-4">
-        <div className="w-full max-w-4xl m-auto md:flex bg-white">
+        <div className="w-full max-w-4xl m-auto md:flex md:gap-4 bg-white">
           <div className="max-w-sm overflow-hidden w-full p-2">
             <img
               src={backendUrl + '/' + productData.image}
@@ -65,7 +65,7 @@ const SingleRecipeDetails = () => {
             </p>
             <div>
               <p className="text-slate-600 font-medium pl-2 md:pl-0">Description:</p>
-              <p>{productData.description}</p>
+              <p className="pl-2 md:pl-0">{productData.description}</p>
             </div>
             <div className="flex gap-3">
               {/* <button
