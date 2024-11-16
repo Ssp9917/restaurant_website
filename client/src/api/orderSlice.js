@@ -6,18 +6,22 @@ export const orderSlice = apiSlice.injectEndpoints({
             query: () => 'order/getAllOrders',
         }),
 
-        getSingleOrderDetails:builder.query({
-            query:(id)=>`order/getSingelOrder/${id}`
+        getSingleOrderDetails: builder.query({
+            query: (id) => `order/getSingelOrder/${id}`
         }),
 
-        getAdminOrders : builder.query({
+        getAdminOrders: builder.query({
             query: () => 'order/getAdminOrder/orders'
         }),
 
-        editOrderStatus : builder.mutation({
-            
-        })
+        updateStatus: builder.mutation({
+            query: ({ id, status }) => ({
+                url: `order/updateStatus/${id}`,
+                method: 'PUT',
+                body: { status },
+            }),
+        }),
     }),
 });
 
-export const {useGetAllOrdersQuery,useGetAdminOrdersQuery,useGetSingleOrderDetailsQuery} = orderSlice;
+export const { useGetAllOrdersQuery, useGetAdminOrdersQuery, useGetSingleOrderDetailsQuery,useUpdateStatusMutation } = orderSlice;

@@ -9,6 +9,10 @@ import bannerRouter from './routes/banner.routes.js';
 import { webhookHandler } from './controllers/webhook.controller.js';
 import orderRouter from './routes/order.routes.js';
 import offerRoutes from './routes/offer.route.js';
+import testimonialRoutes from './routes/testimonial.route.js';
+import bookingTableRoute from './routes/bookingTable.routes.js';
+import tableRoute from './routes/table.routes.js';
+import adminDetailsRoutes from './routes/adminDetails.routes.js';
 
 const app = express();
 const port = process.env.PORT || 6001;
@@ -38,6 +42,10 @@ app.use('/auth', authRouter);
 app.use('/banner', bannerRouter);
 app.use('/order',orderRouter);
 app.use('/offer',offerRoutes);
+app.use('/testimonial',testimonialRoutes);
+app.use('/bookingTable',bookingTableRoute);
+app.use('/table',tableRoute)
+app.use('/admin',adminDetailsRoutes)
 
 app.get("/", (req, res) => {
   res.send("Hello Foodi Client Server!");

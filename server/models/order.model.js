@@ -22,10 +22,15 @@ const orderSchema = new mongoose.Schema({
         type: String,
         required: true,
     },
-    status: {
+    paymentStatus: {
         type: String,
         enum: ['pending', 'completed', 'failed'],
         default: 'pending',
+    },
+    status:{
+        type:String,
+        enum:['pending','in-progress','delivered',"cancel"],
+        default:'pending'
     },
     createdAt: {
         type: Date,

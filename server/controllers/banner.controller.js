@@ -54,7 +54,7 @@ export const addBanner = async (req, res) => {
 export const editBanner = async (req, res) => {
     const { bannerName } = req.body;
     const { id } = req.params;
-    const bannerImage = req.file;
+     const bannerImage = req.file.path.replace(/\\/g, '/'); 
 
 
 

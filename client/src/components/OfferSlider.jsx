@@ -35,15 +35,15 @@ const OfferSlider = () => {
   if (isError) return <p>Failed to load offers.</p>;
 
   return (
-    <div className="w-full bg-gray-100 ">
+    <div className="w-full ">
       <Slider {...settings}>
         {offers.map((offer, index) => (
-          <div key={index} className="p-4">
-            <div className="bg-white shadow-lg p-4 flex flex-col items-center">
+          <div key={index} className="p-4 pt-10 pb-10">
+            <div className="bg-white shadow-all-sides md:rounded-[6px]  p-4 flex flex-col items-center">
               <img
                 src={backendUrl + '/' + offer.offerImage} // Ensure offer.image is correctly accessed
                 alt={offer.title}
-                className="w-[390px] h-[200px] object-cover rounded-lg mb-2"
+                className="w-[390px] h-[200px] object-fill rounded-lg mb-2"
               />
               <h3 className="text-xl font-bold">{offer.title}</h3>
               <p className="text-gray-600">{offer.description}</p>

@@ -29,6 +29,15 @@ import Users from "../pages/admin/Users";
 import AddOffer from "../pages/admin/AddOffer";
 import Offers from "../pages/admin/Offers";
 import EditBanner from "../pages/admin/EditBanner";
+import EditOffer from "../pages/admin/EditOffer";
+import TestimonialAdmin from "../pages/admin/TestimonialAdmin";
+import AddTestimonial from "../pages/admin/AddTestimonial";
+import EditTestimonial from "../pages/admin/EditTestimonial";
+import Booking from "../pages/admin/Booking";
+import UserBooking from "../pages/user/UserBooking";
+import BookingTabel from "../pages/admin/BookingTabel";
+import TableAddForm from "../pages/admin/TableAddForm";
+
 
 
 
@@ -87,8 +96,12 @@ const router = createBrowserRouter([
       },
       {
         path:"/food",
-        element:<Food/>
-      }
+        element:<Search/>
+      },
+      {
+        path:"/user-booking",
+        element:<UserBooking/>
+      },
     ]
   },
   {
@@ -158,6 +171,34 @@ const router = createBrowserRouter([
       {
         path:"offer/addOffer",
         element:<AddOffer/>
+      },
+      {
+        path:"offer/editOffer/:offerId",
+        element:<EditOffer/>
+      },
+      {
+        path:"testimonial",
+        element:<TestimonialAdmin/>
+      },
+      {
+        path:"testimonial/addTestimonial",
+        element:<AddTestimonial/>
+      },
+      {
+        path:"testimonial/editTestimonial/:testimonialId",
+        element:<EditTestimonial/>
+      },
+      {
+        path:"booking",
+        element:<Booking/>
+      },
+      {
+        path:"table",
+        element:<BookingTabel/>
+      },
+      {
+        path:"table/add",
+        element:<TableAddForm/>
       }
     ]
   },

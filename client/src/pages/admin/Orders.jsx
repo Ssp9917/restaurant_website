@@ -1,18 +1,76 @@
-import React from 'react';
+import React, { useState } from 'react';
 import Table from '../../components/Table';
 import { FaEdit, FaEye } from "react-icons/fa";
 import { MdDeleteForever } from "react-icons/md";
 import TableSearch from '../../components/TableSearch';
 import { FaFilter } from "react-icons/fa";
 import { FaSortAmountDown } from "react-icons/fa";
-import { useGetAdminOrdersQuery} from '../../api/orderSlice'; // Updated import to fetch orders
+import { useGetAdminOrdersQuery, useUpdateStatusMutation } from '../../api/orderSlice'; // Updated import to fetch orders
 import { Link } from 'react-router-dom';
+import Pagination from './Pagination';
+import Swal from 'sweetalert2';
 
 const Orders = () => {
-  const { data: ordersList = [] } = useGetAdminOrdersQuery();
+
+  // pagination
+  const [currentPage, setCurrentPage] = useState(1);
+  const itemsPerPage = 10;
+
+  const { data: ordersList = [],refetch } = useGetAdminOrdersQuery();
 
   // Sort orders by date, most recent first
   const sortedOrders = [...ordersList].sort((a, b) => new Date(b.date) - new Date(a.date));
+
+  const [updateStatus] = useUpdateStatusMutation()
+
+  const handleUpdateStatus = async (id) => {
+    Swal.fire({
+      title: "Update Order Status",
+      html: `
+        <select id="status-select" class="swal2-select" style="; padding: 10px; border: 1px solid #ddd; border-radius: 4px;">
+          <option value="" disabled selected>Select a status</option>
+          <option value="in-progress">In-Progress</option>
+          <option value="cancel">Cancel</option>
+          <option value="delivered">Delivered</option>
+        </select>
+      `,
+      showCancelButton: true,
+      confirmButtonText: "Update Status",
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      preConfirm: () => {
+        const status = document.getElementById("status-select").value;
+        if (!status) {
+          Swal.showValidationMessage("Please select a status.");
+          return false;
+        }
+        return status;
+      },
+    }).then(async (result) => {
+      if (result.isConfirmed) {
+        const status = result.value; // Get the selected status
+        try {
+          // Update booking status
+          await updateStatus({ id, status }).unwrap();
+          refetch(); // Refetch bookings list if needed
+  
+          Swal.fire({
+            title: "Success!",
+            text: `The order status has been updated to "${status}".`,
+            icon: "success",
+          });
+        } catch (error) {
+          console.log(error)
+          Swal.fire({
+            title: "Error!",
+            text: error?.data?.message || "Failed to update the status.",
+            icon: "error",
+          });
+        }
+      }
+    });
+  };
+  
 
   const columns = [
     {
@@ -23,7 +81,6 @@ const Orders = () => {
     {
       header: "Order ID",
       accessor: "_id", // Updated to show Order ID
-      
     },
     {
       header: "Total Amount",
@@ -34,6 +91,10 @@ const Orders = () => {
       header: "Payment Status",
       accessor: "status", // Updated to show payment status
       className: "hidden md:table-cell",
+    },
+    {
+      header: "Order Status",
+      accessor: "order_status"
     },
     {
       header: "Date & Time",
@@ -47,8 +108,11 @@ const Orders = () => {
   ];
 
   const renderRow = (order, index) => {
-    // Define the styles for different statuses
-    const statusStyle = order.status === 'completed' ? 'bg-green-500 text-white' : 'bg-yellow-400 text-white';
+    // Define the styles for payment
+    const statusStyle = order.paymentStatus === 'completed' ? 'bg-green-700 text-white' : 'bg-yellow-600 text-white';
+
+    // order status style
+    const orderStatusStyle = order.status === "pending" ? 'bg-yellow-700 text-white' : order.status === "in-progress" ? "bg-blue-700 text-white" : order.status === "cancel" ? "bg-red-700 text-white" : "bg-green-700 text-white"
 
     return (
       <tr
@@ -60,7 +124,9 @@ const Orders = () => {
           <h3 className="font-semibold md:w-full w-[90px] overflow-scroll scrollbar-none scroll-smooth transition-all">{order._id}</h3> {/* Displaying Order ID */}
         </td>
         <td className="hidden md:table-cell">₹ {order.totalAmount}</td> {/* Displaying total amount */}
-        <td className={`hidden md:table-cell`}><div className={`${statusStyle} text-center rounded-full ml-5 mr-5 cursor-pointer`}>{order.status}</div> </td> {/* Conditional styling for status */}
+        <td className={`hidden md:table-cell`}><div className={`${statusStyle} text-center rounded-full ml-5 mr-5 cursor-pointer`}>{order.paymentStatus}</div> </td> {/* Conditional styling for status */}
+        <td className={`hidden md:table-cell`}><div className={`${orderStatusStyle} text-center rounded-full ml-5 mr-5 cursor-pointer`} onClick={()=>handleUpdateStatus(order._id)}>{order.status}</div> </td> {/* Conditional styling for status */}
+
         <td className="hidden md:table-cell"> {new Date(order.createdAt).toLocaleDateString()} at {new Date(order.createdAt).toLocaleTimeString()}</td> {/* Displaying date & time */}
         <td>
           <div className="flex items-center gap-2">
@@ -94,6 +160,15 @@ const Orders = () => {
 
       {/* LIST */}
       <Table columns={columns} renderRow={renderRow} data={sortedOrders} />
+
+
+      {/* Pagination */}
+      <Pagination
+        currentPage={currentPage}
+        onPageChange={setCurrentPage}
+        itemsPerPage={itemsPerPage}
+        totalItems={sortedOrders.length}
+      />
     </>
   );
 };

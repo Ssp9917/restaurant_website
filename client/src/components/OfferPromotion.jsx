@@ -6,7 +6,7 @@ const OfferPromotion = () => {
 
   return (
     <div
-      className="bg-yellow-500 h-[400px] text-center p-4 rounded-lg text-white bg-cover bg-center"
+      className="bg-yellow-500 h-[334px] text-center p-4 rounded-lg text-white bg-cover bg-center"
       style={{
         backgroundImage: `url(${topSellingBg})`,
       }}

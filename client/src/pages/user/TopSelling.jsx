@@ -5,7 +5,7 @@ import OfferPromotion from '../../components/OfferPromotion'
 
 const TopSelling = () => {
     return (
-        <div className="flex flex-col lg:flex-row p-2 mt-5 gap-6">
+        <div className="flex flex-col lg:flex-row p-2  gap-6 mt-8 mb-8">
             <div className="flex-1">
                 <TopSellingItems />
             </div>

@@ -14,7 +14,7 @@ import Swal from 'sweetalert2';
 const Banners = () => {
   const navigate = useNavigate();
 
-  const { data } = useGetAllBannersQuery();
+  const { data,refetch } = useGetAllBannersQuery();
   const [deleteBanner] = useDeleteBannerMutation();
 
   console.log(data)
@@ -58,6 +58,7 @@ const Banners = () => {
       if (result.isConfirmed) {
         try {
           await deleteBanner(id).unwrap();
+          refetch()
           Swal.fire("Deleted!", "The item has been deleted.", "success");
         } catch (error) {
           Swal.fire("Error!", error?.data?.message || "Failed to delete the item.", "error");

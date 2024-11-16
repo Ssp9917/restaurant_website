@@ -1,11 +1,13 @@
 import React from 'react';
 import { useGetAllRecipeQuery } from '../../api/recipeSlice';
 import CardFeature from '../../components/CardFeature';
+import { useNavigate } from 'react-router-dom';
 
 
 const FeaturedProduct = () => {
     const { data: products, isLoading, isError } = useGetAllRecipeQuery();
     const backendBaseUrl = import.meta.env.VITE_BACKEND_BASE_URL;
+    const navigate = useNavigate()
 
     if (isLoading) {
         return <div>Loading...</div>;
@@ -39,7 +41,8 @@ const FeaturedProduct = () => {
                     <div className="w-[70%] flex flex-col gap-3">
                         <div className="flex gap-3">
                             <div
-                                className=" h-[200px]  w-[50%] relative"
+                                onClick={()=>navigate(`/menu/${featuredProduct[0]._id}`)}
+                                className=" h-[240px]  w-[50%] relative"
                                 style={{
                                     backgroundImage: featuredProduct[0]
                                         ? `url(${backendBaseUrl}/${normalizeImagePath(featuredProduct[0].image)})`
@@ -59,7 +62,8 @@ const FeaturedProduct = () => {
                             </div>
 
                             <div
-                                className=" h-[200px]  w-[50%] relative"
+                                onClick={()=>navigate(`/menu/${featuredProduct[1]._id}`)}
+                                className=" h-[240px]  w-[50%] relative"
                                 style={{
                                     backgroundImage: featuredProduct[1]
                                         ? `url(${backendBaseUrl}/${normalizeImagePath(featuredProduct[1].image)})`
@@ -79,7 +83,8 @@ const FeaturedProduct = () => {
                             </div>
                         </div>
                         <div
-                            className="h-[200px]  relative"
+                        onClick={()=>navigate(`/menu/${featuredProduct[2]._id}`)}
+                            className="h-[240px]  relative"
                             style={{
                                 backgroundImage: featuredProduct[2]
                                     ? `url(${backendBaseUrl}/${normalizeImagePath(featuredProduct[2].image)})`
@@ -101,7 +106,8 @@ const FeaturedProduct = () => {
 
                     {/* right */}
                     <div
-                        className="h-[412px] w-[30%]  relative"
+                    onClick={()=>navigate(`/menu/${featuredProduct[3]._id}`)}
+                        className="h-[492px] w-[30%]  relative"
                         style={{
                             backgroundImage: featuredProduct[3]
                                 ? `url(${backendBaseUrl}/${normalizeImagePath(featuredProduct[3].image)})`
@@ -123,16 +129,16 @@ const FeaturedProduct = () => {
             </div>
 
             {/* mobail screen code */}
-            <div className='block md:hidden'>
+            <div className='block md:hidden mb-20'>
 
                 <div className="w-full items-center">
-                    <h2 className="font-bold  text-2xl text-slate-800 mt-3 pl-2">
+                    <h2 className="md:font-bold  md:text-2xl font-medium text-xl text-slate-800 mt-3 pl-2">
                         Features Dishes
                     </h2>
                 </div>
 
                 {/* Container for products */}
-                <div className="overflow-x-auto scrollbar-none md:overflow-hidden">
+                <div className="overflow-x-auto ml-2 md:ml-0 scrollbar-none md:overflow-hidden">
                     <div
                         // ref={scrollContainerRef}
                         className="flex md:grid gap-5 place-items-center md:grid-cols-4"

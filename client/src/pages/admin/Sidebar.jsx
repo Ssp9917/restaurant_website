@@ -6,8 +6,10 @@ import { TbCategoryPlus } from "react-icons/tb";
 import { AiFillProduct } from "react-icons/ai";
 import { PiFlagBannerFoldFill } from "react-icons/pi";
 import { FaJediOrder } from "react-icons/fa";
-import { icon } from 'leaflet';
 import { BiSolidOffer } from "react-icons/bi";
+import { MdEditNote } from "react-icons/md";
+import { CiBookmarkCheck } from "react-icons/ci";
+import { BsTable } from "react-icons/bs";
 
 const Sidebar = () => {
 
@@ -46,10 +48,27 @@ const Sidebar = () => {
                     icon:<BiSolidOffer/>
                 },
                 {
+                    label:"Tabels",
+                    href:"/admin/table",
+                    icon:<BsTable/>
+                },
+                {
                     label: "Orders",
                     href: "/admin/order",
                     icon: <FaJediOrder />
                 },
+                {
+                    label:"Booking",
+                    href:"/admin/booking",
+                    icon:<CiBookmarkCheck/>
+                },
+                {
+                    label:"Testimonials",
+                    href:"/admin/testimonial",
+                    icon:<MdEditNote/>
+                },
+                
+
             ],
         },
     ];

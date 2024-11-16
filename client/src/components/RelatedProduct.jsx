@@ -18,8 +18,8 @@ const RelatedProduct = ({ heading, category }) => {
 
     return (
         <div className="my-5">
-            <h2 className="font-bold text-2xl text-slate-800 mb-4 pl-2">{heading}</h2>
-            <div className="flex flex-wrap pl-2 gap-4 my-4">
+            <h2 className="font-bold text-2xl text-slate-800 mb-4 pl-2 pr-2">{heading}</h2>
+            <div className="grid grid-cols-1 md:grid-cols-4 pl-2 gap-4 my-4">
                 {dataFilter?.length > 0 ? (
                     dataFilter.map((el) => (
                         <CardFeature

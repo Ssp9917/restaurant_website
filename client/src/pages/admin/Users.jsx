@@ -5,26 +5,30 @@ import { MdDeleteForever } from "react-icons/md";
 import TableSearch from '../../components/TableSearch';
 import { FaFilter } from "react-icons/fa";
 import { FaSortAmountDown } from "react-icons/fa";
-import { useGetAdminOrdersQuery} from '../../api/orderSlice'; // Updated import to fetch orders
+import { useGetAdminOrdersQuery } from '../../api/orderSlice'; // Updated import to fetch orders
 import { Link } from 'react-router-dom';
 import axios from '../../config/axiosConfig'
+import Pagination from './Pagination';
+import { paginateItems } from '../../utility/utils';
 
 const Users = () => {
-  const [users,setUsers] = useState([]);
+  const [users, setUsers] = useState([]);
+  const [currentPage,setCurrentPage] = useState(1)
+  const itemsPerPage = 10
 
   useEffect(
-    ()=>{
+    () => {
       axios.get('/auth/getAllUser').then(
-        (res)=>{
+        (res) => {
           console.log(res)
           setUsers(res.data.users)
         }
       ).catch(
-        (err)=>{
+        (err) => {
           console.log(err)
         }
       )
-    },[]
+    }, []
   )
 
   const columns = [
@@ -66,7 +70,7 @@ const Users = () => {
         key={user._id}
         className="border-b border-gray-200 even:bg-slate-50 text-sm hover:bg-lamaPurpleLight"
       >
-        <td className="hidden md:table-cell pl-3">{index + 1}</td>
+        <td className="hidden md:table-cell pl-3">{(currentPage - 1) * itemsPerPage + index + 1}</td>
         <td className="flex items-center gap-4 p-4">
           <h3 className="font-semibold">{user._id}</h3> {/* Displaying Order ID */}
         </td>
@@ -78,7 +82,7 @@ const Users = () => {
             <button className="h-7 gap-2 w-full flex items-center  rounded-full bg-lamaSky">
               <Link
               //  to={`/admin/order/${user._id}`}
-               ><div><FaEye size={16} /></div></Link>
+              ><div><FaEye size={16} /></div></Link>
               <div><MdDeleteForever size={16} /></div>
             </button>
           </div>
@@ -86,6 +90,9 @@ const Users = () => {
       </tr>
     );
   };
+
+  // pagination
+  const paginatedData = paginateItems(users, currentPage, itemsPerPage);
 
   return (
     <>
@@ -106,7 +113,16 @@ const Users = () => {
       </div>
 
       {/* LIST */}
-      <Table columns={columns} renderRow={renderRow} data={users} />
+      <Table columns={columns} renderRow={renderRow} data={paginatedData} />
+
+
+      {/* Pagination */}
+      <Pagination
+        currentPage={currentPage}
+        totalItems={users?.length}
+        itemsPerPage={itemsPerPage}
+        onPageChange={setCurrentPage}
+      />
     </>
   );
 };

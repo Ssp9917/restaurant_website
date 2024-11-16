@@ -9,10 +9,10 @@ const AdminMain = () => {
             {/* Sidebar */}
             <div className="w-[14%] md:w-[8%] lg:w-[16%] xl:w-[14%] p-4">
                 <Link
-                    href="/"
+                    to="/admin"
                     className="flex items-center justify-center lg:justify-start gap-2"
                 >
-                    <span className="hidden lg:block font-bold">SchooLama</span>
+                    <span className="hidden lg:block font-bold">Zomato</span>
                 </Link>
                 <Sidebar />
             </div>

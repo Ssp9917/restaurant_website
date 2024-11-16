@@ -41,9 +41,9 @@ const Banner2 = () => {
     return (
         <div className="w-full  relative ">
             <Slider {...sliderSettings}>
-                {data?.map((slide, index) => (
+                {data?.slice(0,3).map((slide, index) => (
                     <div key={index}>
-                        <img src={backendUrl + '/' + slide.bannerImage} alt="" className='md:h-[70vh] h-[50vh] w-full object-fill' />
+                        <img src={backendUrl + '/' + slide.bannerImage} alt="" className='md:h-[70vh] h-[30vh] w-full object-fill' />
                     </div>
                 ))}
             </Slider>

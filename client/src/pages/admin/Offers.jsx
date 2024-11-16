@@ -4,14 +4,17 @@ import { FaEye, FaEdit, FaFilter, FaSortAmountDown, FaPlusCircle } from "react-i
 import { MdDeleteForever } from "react-icons/md";
 import TableSearch from '../../components/TableSearch';
 import Table from '../../components/Table';
-import { useGetAllOffersQuery } from '../../api/offerSlice';
+import { useDeleteOfferMutation, useGetAllOffersQuery } from '../../api/offerSlice';
+import Swal from 'sweetalert2';
 
 const Offers = () => {
-  const { data } = useGetAllOffersQuery();
+  const { data,refetch } = useGetAllOffersQuery();
   const offers = data?.offers || [];
   const navigate = useNavigate();
 
   const backendUrl = import.meta.env.VITE_BACKEND_BASE_URL;
+
+  const [deleteOffer] = useDeleteOfferMutation()
 
   const columns = [
     { header: "S.no", accessor: "S.no", className: "hidden md:table-cell" },
@@ -22,7 +25,25 @@ const Offers = () => {
   ];
 
   const handleDelete = (id) => {
-    console.log(`Deleting offer with id: ${id}`);
+    Swal.fire({
+      title: "Are you sure?",
+      text: "You won't be able to revert this!",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Yes, delete it!",
+    }).then(async (result) => {
+      if (result.isConfirmed) {
+        try {
+          await deleteOffer(id).unwrap();
+          refetch()
+          Swal.fire("Deleted!", "The item has been deleted.", "success");
+        } catch (error) {
+          Swal.fire("Error!", error?.data?.message || "Failed to delete the item.", "error");
+        }
+      }
+    });
   };
 
 
@@ -37,7 +58,7 @@ const Offers = () => {
       <td className="hidden md:table-cell">{item.description}</td>
       <td>
         <div className="flex items-center gap-2">
-          <Link to={`/admin/recipe/editRecipe/${item._id}`}><FaEdit size={16} /></Link>
+          <Link to={`/admin/offer/editOffer/${item._id}`}><FaEdit size={16} /></Link>
           <MdDeleteForever size={16} onClick={() => handleDelete(item._id)} />
         </div>
       </td>
@@ -57,7 +78,7 @@ const Offers = () => {
             <button className="w-8 h-8 flex items-center justify-center rounded-full bg-lamaYellow">
               <FaSortAmountDown size={14} />
             </button>
-            <button className="w-8 h-8 flex items-center justify-center rounded-full bg-lamaYellow" onClick={() => navigate('/admin/category/addCategory')}>
+            <button className="w-8 h-8 flex items-center justify-center rounded-full bg-lamaYellow" onClick={() => navigate('/admin/offer/addOffer')}>
               <FaPlusCircle size={14} />
             </button>
           </div>

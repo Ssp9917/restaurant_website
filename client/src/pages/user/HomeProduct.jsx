@@ -46,7 +46,7 @@ const HomeProduct = ({ headings }) => {
     return (
         <div className="mt-7 mb-4">
             <div className="flex w-full items-center">
-                <h2 className="font-bold text-center text-2xl text-slate-800 mb-4 pl-2">
+                <h2 className="md:font-bold font-medium text-center md:text-2xl text-xl  text-slate-800 mb-4 pl-2">
                     {headings}
                 </h2>
             </div>
@@ -77,7 +77,7 @@ const HomeProduct = ({ headings }) => {
 
             {/* Show More Button - Visible only on larger screens */}
             {recipe.length > visibleCount && (
-                <div className="md:flex justify-center mt-4  hidden">
+                <div className="md:flex justify-center mt-8 mb-8  hidden">
                     <button
                         onClick={handleShowMore}
                         className="bg-red-500 text-white font-medium px-4 py-2 rounded-xl"

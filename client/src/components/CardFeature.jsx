@@ -28,7 +28,7 @@ const CardFeature = ({ image, name, price, category, loading, id, oldprice }) =>
                         <Link
                             className="h-[150px] w-[300px]  md:w-full  flex flex-col justify-center items-center"
                             style={{
-                                background: "linear-gradient(to top, #fad0c4 0%, #ffd1ff 100%)",
+                                // background: "linear-gradient(to top, #fad0c4 0%, #ffd1ff 100%)",
                                 borderRadius: 24,
                                 overflow: "hidden"
 
@@ -37,7 +37,7 @@ const CardFeature = ({ image, name, price, category, loading, id, oldprice }) =>
 
                         >
                             <div className="overflow-hidden bg-transparent w-full h-full flex justify-center items-center">
-                                <img src={backendBaseUrl + '/' + image} className="w-full h-full " />
+                                <img src={backendBaseUrl + '/' + image} className="w-full h-full object-contain " />
                             </div>
                         </Link>
 
@@ -55,7 +55,7 @@ const CardFeature = ({ image, name, price, category, loading, id, oldprice }) =>
                                 className="z-[999] rounded"
                                 onClick={handleAddCartProduct}
                             >
-                               <img src={addToCartImage} alt="" />
+                               <img src={addToCartImage}  alt="" />
                             </button>
                         </p>
                     </Link>

@@ -5,12 +5,16 @@ import application from '../../assets/application.png';
 import orderImage from '../../assets/checkout.png'; // Renamed the import to avoid conflict
 import { useGetAllRecipeQuery } from '../../api/recipeSlice';
 import { useGetAllCategoryQuery } from '../../api/categorySlice';
-import { useGetAllOrdersQuery } from '../../api/orderSlice';
+import { useGetAdminOrdersQuery, useGetAllOrdersQuery } from '../../api/orderSlice';
+import { useGetAllBookingQuery } from '../../api/bookingTable';
 
 const Dashboard = () => {
   const { data: recipe } = useGetAllRecipeQuery();
   const { data: category } = useGetAllCategoryQuery();
-  const { data: order } = useGetAllOrdersQuery();
+  const { data: order } = useGetAdminOrdersQuery();
+  const {data} = useGetAllBookingQuery();
+
+  const booking = data?.bookings || []
 
   return (
     <>
@@ -33,6 +37,12 @@ const Dashboard = () => {
           background={"linear-gradient(rgb(246 192 65), rgb(181 143 0))"}
           count={order?.length || 0}
           image={orderImage} // Use the renamed image here
+        />
+        <ShowBooking
+        title={"Total Booking"}
+        background={"linear-gradient(rgb(200 180 50),rgb(160 120 0))"}
+        count={booking?.length || 0}
+        image={orderImage}
         />
       </div>
     </>

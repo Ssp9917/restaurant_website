@@ -7,8 +7,8 @@ const AddOffer = () => {
   const [description, setDescription] = useState('');
   const [discount, setDiscount] = useState('');
   const [offerImage, setOfferImage] = useState(null);
-  const [startDate, setStartDate] = useState('');
-  const [endDate, setEndDate] = useState('');
+  // const [startDate, setStartDate] = useState('');
+  // const [endDate, setEndDate] = useState('');
 
   const [addOffer, { isLoading, isError }] = useAddOfferMutation();
 
@@ -25,8 +25,8 @@ const AddOffer = () => {
       formData.append('description', description);
       formData.append('discount', discount);
       formData.append('offerImage', offerImage);  // Adding image file
-      formData.append('startDate', startDate);
-      formData.append('endDate', endDate);
+      // formData.append('startDate', startDate);
+      // formData.append('endDate', endDate);
 
       // Sending FormData via addOffer API call
       await addOffer(formData);
@@ -43,8 +43,8 @@ const AddOffer = () => {
       setDescription('');
       setDiscount('');
       setOfferImage(null);
-      setStartDate('');
-      setEndDate('');
+      // setStartDate('');
+      // setEndDate('');
 
 
     } catch (error) {
@@ -97,7 +97,7 @@ const AddOffer = () => {
           />
         </div>
 
-        <div>
+        {/* <div>
           <label className="block text-gray-700 font-medium mb-2">Start Date</label>
           <input
             type="date"
@@ -106,9 +106,9 @@ const AddOffer = () => {
             required
             className="w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
           />
-        </div>
+        </div> */}
 
-        <div>
+        {/* <div>
           <label className="block text-gray-700 font-medium mb-2">End Date</label>
           <input
             type="date"
@@ -117,7 +117,7 @@ const AddOffer = () => {
             required
             className="w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
           />
-        </div>
+        </div> */}
 
         <button
           type="submit"
@@ -126,7 +126,7 @@ const AddOffer = () => {
         >
           {isLoading ? 'Submitting...' : 'Add Offer'}
         </button>
-        {isError && <p className="text-red-500 mt-2">Failed to add offer. Please try again.</p>}
+        {/* {isError && <p className="text-red-500 mt-2">Failed to add offer. Please try again.</p>} */}
       </form>
     </div>
   );

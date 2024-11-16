@@ -1,14 +1,26 @@
 import Stripe from 'stripe';
 import dotenv from 'dotenv';
 
+import User from '../models/user.model.js';
+
 dotenv.config(); // Load environment variables
 
 const STRIPE_SECRET_KEY = process.env.STRIPE_SECRET_KEY; // Get your secret key from environment variables
 const stripe = new Stripe(STRIPE_SECRET_KEY); // Initialize Stripe with the secret key
 
+
 export const createPaymentIntent = async (req, res) => {
     try {
         const { userId, items } = req.body; // Extract userId and items from the request body
+
+        // Fetch user's email from the database using userId
+        const user = await User.findById(userId);
+        if (!user) {
+            return res.status(404).json({ error: "User not found" });
+        }
+
+        const email = user.email; // Retrieve the user's email
+        const userName = user.userName
 
         const params = {
             submit_type: "pay",
@@ -36,7 +48,8 @@ export const createPaymentIntent = async (req, res) => {
             cancel_url: `${process.env.FRONTEND_URL}/cancel`,
             metadata: {
                 userId, // Attach the userId here
-                // Add any other metadata as needed
+                email,  // Add the email to metadata
+                userName
             },
         };
 
@@ -47,3 +60,4 @@ export const createPaymentIntent = async (req, res) => {
         res.status(err.statusCode || 500).json({ error: err.message });
     }
 };
+

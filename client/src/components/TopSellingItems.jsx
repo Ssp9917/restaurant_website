@@ -20,15 +20,15 @@ const ProductCard = ({ product }) => {
         <div className="flex items-center flex-1 border rounded-lg shadow-md bg-white w-[200px] md:w-full">
             <Link className='w-[200px] md:w-full flex items-center gap-2'>
                 <Link  to={`/menu/${product._id}`}>
-                    <img src={`${backendBaseUrl}/${product.image}`} alt={product.name} className="md:w-20 w-full mb-2 md:mb-0 h-20 rounded-lg mr-4" />
+                    <img src={`${backendBaseUrl}/${product.image}`} alt={product.name} className="md:w-20 w-full mb-2 md:mb-0 h-20 rounded-lg mr-4 object-contain" />
 
                 </Link>
                 <div className="flex flex-col justify-between w-full pr-2 pl-2 md:pl-0">
                     <h3 className="text-[12px] font-semibold pb-2 mb-2 border-b ">{product.name}</h3>
                     <div className="flex justify-between items-center w-full">
                         <p className="text-gray-700">₹ {product.price}</p>
-                        <button className="z-[999] rounded" onClick={handleAddCartProduct}>
-                            <img src={addToCartImage} alt="Add to cart" />
+                        <button className=" rounded" onClick={handleAddCartProduct}>
+                            <img src={addToCartImage}  alt="Add to cart" />
                         </button>
                     </div>
                 </div>
@@ -70,7 +70,7 @@ const TopSellingItems = () => {
     return (
         <div className="">
             <div className="flex justify-between items-center mb-4">
-                <h2 className="text-2xl font-bold">Top Selling Items</h2>
+                <h2 className="md:text-2xl md:font-bold text-xl font-medium">Top Selling Items</h2>
                 <button className="text-red-500 font-semibold" onClick={()=>navigate('/food')}>See All</button>
             </div>
 

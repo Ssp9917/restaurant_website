@@ -62,7 +62,7 @@ const Search = () => {
       {/* Product List */}
       <div className="grid grid-cols-1 md:p-0 p-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-2">
         {filteredProducts?.length > 0 ? (
-          filteredProducts.slice(0,visibleCount).map((el) => (
+          filteredProducts.map((el) => (
             <CardFeature
               key={el._id}
               id={el._id}

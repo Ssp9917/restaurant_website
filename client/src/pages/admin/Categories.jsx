@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import Table from '../../components/Table';
 import { Link, useNavigate } from 'react-router-dom';
 import { FaEye, FaEdit, FaFilter, FaSortAmountDown, FaPlusCircle } from "react-icons/fa";
@@ -6,15 +6,23 @@ import { MdDeleteForever } from "react-icons/md";
 import TableSearch from '../../components/TableSearch';
 import { useDeleteCategoryMutation, useGetAllCategoryQuery } from '../../api/categorySlice';
 import Swal from 'sweetalert2'
+import Pagination from './Pagination';
+import { paginateItems } from '../../utility/utils';
 
 const Categories = () => {
 
+  const [currentPage,setCurrentPage] = useState(1);
+  const itemsPerPage = 10;
+
   const navigate = useNavigate();
 
-  const { data: categoryList } = useGetAllCategoryQuery();
+  const { data: categoryList,refetch } = useGetAllCategoryQuery();
   const [deleteCategory] = useDeleteCategoryMutation();
 
-  const backendUrl = import.meta.env.VITE_BACKEND_BASE_URL
+  const backendUrl = import.meta.env.VITE_BACKEND_BASE_URL;
+
+  // pagination
+  const paginatedData = paginateItems(categoryList, currentPage, itemsPerPage);
 
   const columns = [
     { header: "S.no", accessor: "S.no", className: "hidden md:table-cell" },
@@ -37,6 +45,7 @@ const Categories = () => {
         try {
           // Perform deletion via mutation
           await deleteCategory(id).unwrap();
+          refetch()
 
           Swal.fire({
             title: "Deleted!",
@@ -107,9 +116,15 @@ const Categories = () => {
       </div>
 
       {/* LIST */}
-      <Table columns={columns} renderRow={renderRow} data={categoryList} />
+      <Table columns={columns} renderRow={renderRow} data={paginatedData} />
 
       {/* PAGINATION */}
+      <Pagination
+        currentPage={currentPage}
+        itemsPerPage={itemsPerPage}
+        totalItems={categoryList?.length}
+        onPageChange={setCurrentPage}
+      />
     </>
   );
 };

@@ -53,10 +53,10 @@ const AllProduct = ({ heading }) => {
   };
 
   return (
-    <div className="mt-5">
-      <h2 className="font-bold text-2xl text-slate-800 mb-4 pl-2">{heading}</h2>
+    <div className="mt-5 md:mt-10">
+      <h2 className="md:font-bold font-medium md:text-2xl text-xl text-slate-800 md:mb-4 pl-2">{heading}</h2>
 
-      <div className="overflow-x-auto scrollbar-none md:overflow-hidden flex md:justify-center gap-2">
+      <div className="overflow-x-auto scrollbar-none md:overflow-hidden flex md:justify-center gap-2 md:gap-6">
         {/* <div className='hidden md:block'>
           <FilterProduct
             category={'All'}

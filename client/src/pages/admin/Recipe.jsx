@@ -12,17 +12,17 @@ import { MdDeleteForever } from "react-icons/md";
 
 const Recipe = () => {
   const navigate = useNavigate();
-  const { data: homeProductCartList = [] } = useGetAllRecipeQuery();
+  const { data: homeProductCartList = [], refetch } = useGetAllRecipeQuery();
   const [searchQuery, setSearchQuery] = useState('');
   const [currentPage, setCurrentPage] = useState(1);
+  const itemsPerPage = 10;
   const [sortOrder, setSortOrder] = useState('asc');
   const [sortKey, setSortKey] = useState('name');
-  const itemsPerPage = 10;
   const [deleteRecipe] = useDeleteRecipeMutation();
   
 
 
-  const backendUrl = import.meta.env.VITE_BACKEND_BASE_URL
+  const backendUrl = import.meta.env.VITE_BACKEND_BASE_URL;
 
   const handleDelete = async (id) => {
     Swal.fire({
@@ -37,6 +37,7 @@ const Recipe = () => {
       if (result.isConfirmed) {
         try {
           await deleteRecipe(id).unwrap();
+          refetch()
           Swal.fire("Deleted!", "The item has been deleted.", "success");
         } catch (error) {
           Swal.fire("Error!", error?.data?.message || "Failed to delete the item.", "error");

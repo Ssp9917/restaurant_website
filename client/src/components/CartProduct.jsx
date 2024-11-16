@@ -46,14 +46,14 @@ const CartProduct = ({ id, name, image, category, qty, total, price }) => {
             <div className="flex gap-3 items-center border-2 p-1 rounded-lg ">
               <button
                 onClick={() => dispatch(increaseItemQuantity({ id }))}
-                className=" py-1 mt-2 rounded  p-1 "
+                className=" py-1  rounded  p-1 "
               >
                 <TbPlus color='green' />
               </button>
               <p className="font-semibold p-1 text-green-500">{qty}</p>
               <button
                 onClick={() => dispatch(decreaseItemQuantity({ id }))}
-                className=" py-1 mt-2 rounded  p-1 "
+                className=" py-1  rounded  p-1 "
               >
                 <TbMinus color='green' />
               </button>

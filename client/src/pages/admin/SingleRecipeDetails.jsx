@@ -41,9 +41,9 @@ const SingleRecipeDetails = () => {
 
   return (
     <div>
-      <div className="p-2 md:p-4">
-        <div className="w-full max-w-4xl m-auto md:flex md:gap-4 bg-white">
-          <div className="max-w-sm overflow-hidden w-full p-2">
+      <div className="p-2 md:p-4 md:pt-12">
+        <div className="w-full max-w-5xl m-auto md:flex md:gap-4 bg-white">
+          <div className="max-w-sm  overflow-hidden w-full p-2 md:border border-[#ddd]">
             <img
               src={backendUrl + '/' + productData.image}
               alt={productData.name}
@@ -51,7 +51,7 @@ const SingleRecipeDetails = () => {
             />
           </div>
 
-          <div className="flex flex-col gap-1">
+          <div className="flex flex-col md:w-[50%] gap-3">
             <h3 className="font-semibold pl-2 md:pl-0 text-slate-600 capitalize text-2xl md:text-4xl">
               {productData.name}
             </h3>

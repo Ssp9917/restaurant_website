@@ -42,7 +42,7 @@ const Navbar = () => {
         </Link>
 
         <div className="flex items-center gap-4 md:gap-7">
-          <nav className="gap-4 md:gap-6 text-base md:text-lg hidden md:flex">
+          <nav className="gap-4 md:gap-8 text-base md:text-lg hidden md:flex">
             <Link to={""}>Home</Link>
             <Link to={"food"}>Menu</Link>
             <Link to={"about"}>About</Link>
@@ -90,7 +90,13 @@ const Navbar = () => {
                       to={"/order"}
                       className="whitespace-nowrap  cursor-pointer px-2"
                     >
-                      orders
+                      Orders
+                    </Link>
+                    <Link
+                      to={"/user-booking"}
+                      className="whitespace-nowrap  cursor-pointer px-2"
+                    >
+                      Booking
                     </Link>
                     <Link
                       className="cursor-pointer whitespace-nowrap"

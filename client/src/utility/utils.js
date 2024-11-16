@@ -11,7 +11,7 @@ export const searchItems = (items, searchQuery, keys) => {
 // Function to paginate data
 export const paginateItems = (items, currentPage, itemsPerPage) => {
     const startIndex = (currentPage - 1) * itemsPerPage;
-    return items.slice(startIndex, startIndex + itemsPerPage);
+    return items?.slice(startIndex, startIndex + itemsPerPage);
 };
 
 

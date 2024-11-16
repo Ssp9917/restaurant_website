@@ -26,7 +26,7 @@ export const bannerSlice = apiSlice.injectEndpoints({
             }),
         }),
 
-        // Delete a recipe by ID
+        // Delete a banner by ID
         deleteBanner: builder.mutation({
             query: (id) => ({
                 url: `banner/deleteBanner/${id}`,
