@@ -1,3 +1,4 @@
+import path from 'path'
 import express from 'express';
 import cors from 'cors';
 import dbConfig from './database/connectToDb.js';
@@ -22,7 +23,7 @@ app.post('/webhook', express.raw({ type: 'application/json' }), webhookHandler);
 
 // Middleware
 app.use(cors({
-  origin: 'http://localhost:5173',
+  origin: ['http://localhost:5173','http://localhost:3000','http://192.168.1.9:3000'],
   credentials: true,
   allowedHeaders: ['Content-Type', 'Authorization'],
 }));
@@ -33,6 +34,10 @@ app.use('/uploads', express.static('uploads'));
 
 // Database connect
 dbConfig();
+
+const __dirname = path.resolve();
+
+
 
 // Import routes here
 app.use('/category', categoryRouter);
@@ -47,9 +52,16 @@ app.use('/bookingTable',bookingTableRoute);
 app.use('/table',tableRoute)
 app.use('/admin',adminDetailsRoutes)
 
-app.get("/", (req, res) => {
-  res.send("Hello Foodi Client Server!");
+app.use(express.static(path.join(__dirname, "..", "client", "dist")));
+
+// app.get("/", (req, res) => {
+//   res.send("Hello Foodi Client Server!");
+// });
+
+app.get("*", (req, res) => {
+  res.sendFile(path.join(__dirname, "..", "client", "dist", "index.html"));
 });
+
 
 app.listen(port, () => {
   console.log(`Example app listening on port ${port}`);
