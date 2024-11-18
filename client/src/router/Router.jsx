@@ -13,7 +13,7 @@ import SingleRecipeDetails from "../pages/admin/SingleRecipeDetails";
 import ThankyouPage from "../components/ThankyouPage";
 import AddRestaurant from "../components/AddRestaurant";
 import Banners from "../pages/admin/Banners";
-import AddBanner from "../pages/admin/addBanner";
+import AddBanner from "../pages/admin/AddBanner";
 import Order from "../pages/user/Order";
 import Orders from "../pages/admin/Orders";
 import About from "../pages/user/About";
