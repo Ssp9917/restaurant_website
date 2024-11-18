@@ -23,13 +23,13 @@ export const adminDetailsSlice = apiSlice.injectEndpoints({
         }),
 
         
-        // updateStatus: builder.mutation({
-        //     query: ({ id, status }) => ({
-        //         url: `bookingTable/updateStatus/${id}`,  // URL with category ID
-        //         method: 'PUT',
-        //         body:  {status},  // Send the name in the body as an object
-        //     }),
-        // }),
+        updateAdminDetail: builder.mutation({
+            query: (data) => ({
+                url: `admin/updateAdminDetails`,
+                method: 'PUT',
+                body:  data,
+            }),
+        }),
 
         // deleteBooking: builder.mutation({
         //     query: (id) => ({
@@ -42,5 +42,6 @@ export const adminDetailsSlice = apiSlice.injectEndpoints({
 
 export const {
   useAddAdminDetailMutation,
-  useGetAdminDetailQuery
+  useGetAdminDetailQuery,
+  useUpdateAdminDetailMutation
 } = adminDetailsSlice;

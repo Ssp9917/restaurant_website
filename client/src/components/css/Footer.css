@@ -2,7 +2,7 @@
 
 .footer__container{
 	width: 90%;
-	margin: 4rem auto;
+	margin: 0rem auto;
 }
 
 .footer_section1{
@@ -33,8 +33,8 @@
 	display: grid;
 	grid-template-columns : repeat(5, 1fr);
 	margin: auto;
-	gap: 1rem;
-	padding: 3rem 0;
+	/* gap: 1rem; */
+	/* padding: 3rem 0; */
 }
 
 .link_container{

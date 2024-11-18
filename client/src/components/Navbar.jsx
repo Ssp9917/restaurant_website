@@ -6,13 +6,21 @@ import { BsCartFill } from "react-icons/bs";
 import { useSelector } from 'react-redux';
 import { AuthContext } from '../context/AuthContext';
 import Swal from 'sweetalert2'
+import { useGetAdminDetailQuery } from '../api/adminDetailsSlice';
 
 const Navbar = () => {
 
   const [showMenu, setShowMenu] = useState(false);
 
   // const dispatch = useDispatch();
-  const { user: userData, logout } = useContext(AuthContext)
+  const { user: userData, logout } = useContext(AuthContext);
+
+  const { data } = useGetAdminDetailQuery();
+
+
+  const backendUrl = import.meta.env.VITE_BACKEND_BASE_URL
+
+  const adminlogo = `${backendUrl}/uploads/${data?.adminDetails.adminLogo}`;
 
   const handleShowMenu = () => {
     setShowMenu((preve) => !preve);
@@ -37,7 +45,11 @@ const Navbar = () => {
       <div className="flex items-center h-full justify-between">
         <Link to={""}>
           <div className="flex items-center h-full">
-            <img src={logo} className="h-8 w-20" />
+            <img
+              src={data?.adminDetails?.adminLogo ? adminlogo : logo}
+              className="w-32"
+              alt="Logo"
+            />
           </div>
         </Link>
 

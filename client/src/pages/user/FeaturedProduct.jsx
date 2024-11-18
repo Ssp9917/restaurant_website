@@ -131,7 +131,7 @@ const FeaturedProduct = () => {
             {/* mobail screen code */}
             <div className='block md:hidden mb-20'>
 
-                <div className="w-full items-center">
+                <div className="w-full items-center mb-4">
                     <h2 className="md:font-bold  md:text-2xl font-medium text-xl text-slate-800 mt-3 pl-2">
                         Features Dishes
                     </h2>

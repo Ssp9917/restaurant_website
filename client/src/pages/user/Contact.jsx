@@ -13,7 +13,7 @@ const Contact = () => {
     date: '',
     time: '08:00am',
     message: '',
-    tableNo: '1',
+    tableNo: '',
   });
 
   const { data,refetch } = useGetAllTableQuery()
@@ -67,7 +67,7 @@ const Contact = () => {
     <section className="bg-gray-500">
       <div className="">
         <div className="flex flex-col lg:flex-row bg-gray-100 overflow-hidden">
-          <div className="lg:w-2/3 p-8 bg-white">
+          <div className="lg:w-2/3 p-4 bg-white">
             <h2 className="text-3xl font-semibold text-center text-gray-800 mb-4">
               Online Reservation
             </h2>
@@ -224,7 +224,7 @@ const Contact = () => {
           </div>
 
           {/* Contact Section */}
-          <div className="lg:w-1/3 p-8 text-center text-white bg-black flex flex-col items-center justify-center space-y-6">
+          <div className="lg:w-1/3 p-4 text-center mb-[54px] md:mb-0  text-white bg-black flex flex-col items-center justify-center space-y-6">
             <h2 className="text-3xl font-semibold">Contact Us</h2>
             <a href="tel:+88123123456" className="text-2xl font-bold hover:underline">
               +88-123-123456

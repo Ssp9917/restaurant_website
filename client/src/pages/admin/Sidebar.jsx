@@ -10,6 +10,7 @@ import { BiSolidOffer } from "react-icons/bi";
 import { MdEditNote } from "react-icons/md";
 import { CiBookmarkCheck } from "react-icons/ci";
 import { BsTable } from "react-icons/bs";
+import { RiAdminFill } from "react-icons/ri";
 
 const Sidebar = () => {
 
@@ -67,6 +68,11 @@ const Sidebar = () => {
                     href:"/admin/testimonial",
                     icon:<MdEditNote/>
                 },
+                {
+                    label:"AdminDetails",
+                    href:"/admin/adminDetails",
+                    icon:<RiAdminFill/>
+                }
                 
 
             ],

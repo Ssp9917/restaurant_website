@@ -37,6 +37,7 @@ import Booking from "../pages/admin/Booking";
 import UserBooking from "../pages/user/UserBooking";
 import BookingTabel from "../pages/admin/BookingTabel";
 import TableAddForm from "../pages/admin/TableAddForm";
+import AdminDetails from "../pages/admin/AdminDetails";
 
 
 
@@ -199,6 +200,10 @@ const router = createBrowserRouter([
       {
         path:"table/add",
         element:<TableAddForm/>
+      },
+      {
+        path:"adminDetails",
+        element:<AdminDetails/>
       }
     ]
   },

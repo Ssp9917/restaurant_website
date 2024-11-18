@@ -40,7 +40,7 @@ const SingleRecipeDetails = () => {
   if (!productData) return <div>No product found.</div>; // Handle case with no product
 
   return (
-    <div>
+    <div className="mb-[70px] md:mb-0">
       <div className="p-2 md:p-4 md:pt-12">
         <div className="w-full max-w-5xl m-auto md:flex md:gap-4 bg-white">
           <div className="max-w-sm  overflow-hidden w-full p-2 md:border border-[#ddd]">

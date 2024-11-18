@@ -88,8 +88,8 @@ const Cart = () => {
     
 
     return (
-        <div className="p-4 md:p-6">
-           <h1 className="text-2xl font-bold mb-6"> <span><BackButton/></span>Cart</h1>
+        <div className="p-4 md:p-6 mb-10 md:mb-0">
+           <h1 className="md:text-2xl text-xl  md:font-bold font-medium md:mb-6 mb-0"> <span><BackButton/></span>Cart</h1>
 
             {productCartItem.length > 0 ? (
                 <div className="my-4  flex flex-col  md:flex-row gap-4">

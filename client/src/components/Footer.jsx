@@ -9,13 +9,26 @@ import { FaSquareInstagram } from "react-icons/fa6";
 import { FaTwitterSquare } from "react-icons/fa";
 import { FaYoutube } from "react-icons/fa";
 import { FaLinkedin } from "react-icons/fa";
+import { useGetAdminDetailQuery } from "../api/adminDetailsSlice";
 
 
 const Footer = () => {
+
+  const { data } = useGetAdminDetailQuery()
+
+  const backendUrl = import.meta.env.VITE_BACKEND_BASE_URL
+
+  const adminlogo = `${backendUrl}/uploads/${data?.adminDetails.adminLogo}`;
+
   return (
     <footer className="footer__container hidden md:block">
       <div className="footer_section1">
-        <img src={logo} alt="zomato logo" className="mb-3" />
+        <img
+          src={data?.adminDetails?.adminLogo ? adminlogo : logo}
+          // src={logo}
+          alt="zomato logo"
+          className="mb-3"
+        />
         <div className="section1__button_container">
           <button>
             {/* <img
@@ -102,13 +115,13 @@ const Footer = () => {
                 <FaSquareInstagram />
               </button>
               <button className="flex justify-center items-center">
-                <FaTwitterSquare/>
+                <FaTwitterSquare />
               </button>
               <button className="flex justify-center items-center">
-                <FaYoutube/>
+                <FaYoutube />
               </button>
               <button className="flex justify-center items-center">
-                <FaLinkedin/>
+                <FaLinkedin />
               </button>
             </div>
             <div className="social_media_logos">

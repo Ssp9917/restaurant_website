@@ -1,6 +1,7 @@
 import React, { useContext } from 'react';
-import { FaArrowLeft } from 'react-icons/fa';
+// import { FaArrowLeft } from 'react-icons/fa';
 import { AuthContext } from '../context/AuthContext';
+import { MdOutlineArrowBack } from "react-icons/md";
 
 const BackButton = () => {
   const handleBack = () => {
@@ -15,7 +16,7 @@ const BackButton = () => {
       onClick={()=>{handleBack(),handleMenuClick()}}
       className="inline-block md:hidden"
     >
-      <FaArrowLeft fill='#000' className="mr-1 pt-1 md:hidden" />
+      <MdOutlineArrowBack fill='#000' className="mr-1 pt-1 md:hidden" />
     </span>
   );
 };
