@@ -23,7 +23,7 @@ app.post('/webhook', express.raw({ type: 'application/json' }), webhookHandler);
 
 // Middleware
 app.use(cors({
-  origin: ['*'],
+  origin: ['http://localhost:5173','http://localhost:3000','http://192.168.1.9:3000'],
   credentials: true,
   allowedHeaders: ['Content-Type', 'Authorization'],
 }));
